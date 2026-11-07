@@ -88,4 +88,5 @@ this sandbox's 6 blocked hosts (as before); stand-in smoke 44/44 with `0006`; tw
 byte for byte with npm's (blocked here: `curl -s https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js | openssl dgst -sha384 -binary | openssl base64 -A`
 must print `0w2KAL2YHP6wKOkUDzkCDGgVvfmHnj02DHeQ6XcHOgTfFsGyonKOpShMH1x6nk9o`).
 
-**Commit:** recorded below when pushed.
+**Commit:** `44de2dc` on `claude/fervent-carson-5ozivy` (pushed 2026-11-07; not merged, so not deployed, and
+`0006` is not on the live project until the owner applies it).
