@@ -321,14 +321,15 @@ found = [x for lst in ([pub, legacy] if sys.argv[1] == "publishable" else [legac
 if not found: sys.exit(3)
 for kind, key in (found if len(sys.argv) > 2 else found[:1]): print(kind, key)' "$KEY_KIND" "$@"
 }
-write_config() { # write_config URL KEY → CONFIG_OUT, keeping GOOGLE_MAP_ID and METRO from the current file
-  local map_id metro tmp
+write_config() { # write_config URL KEY → CONFIG_OUT, keeping GOOGLE_MAP_ID, METRO and CAPTCHA_SITE_KEY from the current file
+  local map_id metro captcha tmp
   map_id=$(config_value GOOGLE_MAP_ID "$CONFIG_OUT"); metro=$(config_value METRO "$CONFIG_OUT"); metro=${metro:-LA}
+  captcha=$(config_value CAPTCHA_SITE_KEY "$CONFIG_OUT")
   mkdir -p "$(dirname "$CONFIG_OUT")"
   tmp="$CONFIG_OUT.tmp.$$"
   python3 -I -c '
 import json, sys
-url, key, map_id, metro, out = sys.argv[1:6]
+url, key, map_id, metro, captcha, out = sys.argv[1:7]
 q = lambda s: json.dumps(s).replace("\x27", "\\u0027")[1:-1]  # JS-safe inside single quotes
 text = """/* ============================================================
    OPENCOURT — runtime configuration (client-side values only)
@@ -341,19 +342,20 @@ text = """/* ============================================================
    assets/data/courts.json, keeps reports on this device, says so in the
    sidebar, and hides the pickups features.
 
-   Written by scripts/provision-supabase.sh; GOOGLE_MAP_ID and METRO are kept across runs.
+   Written by scripts/provision-supabase.sh; GOOGLE_MAP_ID, METRO and CAPTCHA_SITE_KEY are kept across runs.
    ============================================================ */
 window.OPENCOURT_CONFIG = {
   SUPABASE_URL: \x27%s\x27,
   SUPABASE_ANON_KEY: \x27%s\x27,   // the project\x27s anon / publishable key
   GOOGLE_MAP_ID: \x27%s\x27,       // optional: a Map ID enables Advanced Markers (Google then ignores the JSON map style)
-  METRO: \x27%s\x27
+  METRO: \x27%s\x27,
+  CAPTCHA_SITE_KEY: \x27%s\x27     // optional: a Cloudflare Turnstile site key; set it before enabling CAPTCHA in Supabase (supabase/README.md)
 };
-""" % (q(url), q(key), q(map_id), q(metro))
-open(out, "w", encoding="utf-8").write(text)' "$1" "$2" "$map_id" "$metro" "$tmp"
+""" % (q(url), q(key), q(map_id), q(metro), q(captcha))
+open(out, "w", encoding="utf-8").write(text)' "$1" "$2" "$map_id" "$metro" "$captcha" "$tmp"
   chmod 644 "$tmp"
   mv -f "$tmp" "$CONFIG_OUT"
-  note "wrote $CONFIG_OUT (GOOGLE_MAP_ID '${map_id}' and METRO '${metro}' kept)"
+  note "wrote $CONFIG_OUT (GOOGLE_MAP_ID '${map_id}', METRO '${metro}' and CAPTCHA_SITE_KEY '${captcha}' kept)"
 }
 
 # =================================================================================================

@@ -68,25 +68,66 @@ function esc(v) {
   return String(v == null ? '' : v).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 
+/* ============================================================
+   TIME — every clock is the metro's, not the device's (owner, 2026-11-07): the availability heuristic,
+   pickup times, the new-pickup form, the header clock and the theme date. A device in another zone sees
+   the abbreviation (PST / PDT) beside each time.
+   ============================================================ */
+const METRO_TZ = { LA: 'America/Los_Angeles' };
+const TZ = METRO_TZ[CFG.METRO || 'LA'] || 'America/Los_Angeles';
+const ELSEWHERE = (() => { try { return Intl.DateTimeFormat().resolvedOptions().timeZone !== TZ; } catch (e) { return true; } })();
+const ZONED = new Intl.DateTimeFormat('en-US', { timeZone: TZ, hourCycle: 'h23', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', weekday: 'short' });
+const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+// The metro's wall clock at an instant: { y, mo, d, h, mi, wd (0 = Sunday), ymd 'YYYY-MM-DD' }.
+function zoned(date) {
+  const p = {};
+  ZONED.formatToParts(date).forEach(x => { p[x.type] = x.value; });
+  return { y: +p.year, mo: +p.month, d: +p.day, h: (+p.hour) % 24, mi: +p.minute, wd: WEEKDAYS.indexOf(p.weekday), ymd: `${p.year}-${p.month}-${p.day}` };
+}
+
+// ' PST' / ' PDT' for a device elsewhere, '' at home.
+function zoneTag(date) {
+  if (!ELSEWHERE) return '';
+  try {
+    const t = new Intl.DateTimeFormat('en-US', { timeZone: TZ, timeZoneName: 'short' }).formatToParts(date).find(x => x.type === 'timeZoneName');
+    return t ? ` ${t.value}` : '';
+  } catch (e) { return ''; }
+}
+
+// A wall-clock time in the metro, as a datetime-local input gives it ('YYYY-MM-DDTHH:MM'), → the instant.
+function fromZonedInput(value) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/.exec(String(value || ''));
+  if (!m) return new Date(NaN);
+  const wall = Date.UTC(+m[1], +m[2] - 1, +m[3], +m[4], +m[5]);
+  const offsetAt = (t) => { const z = zoned(new Date(t)); return Date.UTC(z.y, z.mo - 1, z.d, z.h, z.mi) - t; };
+  let t = wall - offsetAt(wall);
+  const again = wall - offsetAt(t);        // across a daylight-saving change the first guess is an hour off
+  if (again !== t) t = again;
+  return new Date(t);
+}
+
 function fmtWhen(iso) {
   const d = new Date(iso);
   if (isNaN(d)) return '';
-  const now = new Date();
-  const sameDay = (a, b) => a.toDateString() === b.toDateString();
-  const tomorrow = new Date(now); tomorrow.setDate(now.getDate() + 1);
-  const time = d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
-  if (sameDay(d, now)) return `Today ${time}`;
-  if (sameDay(d, tomorrow)) return `Tomorrow ${time}`;
-  return `${d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })} ${time}`;
+  const now = zoned(new Date());
+  const day = zoned(d).ymd;
+  const tomorrow = new Date(Date.UTC(now.y, now.mo - 1, now.d + 1)).toISOString().slice(0, 10);
+  const time = d.toLocaleTimeString('en-US', { timeZone: TZ, hour: 'numeric', minute: '2-digit' }) + zoneTag(d);
+  if (day === now.ymd) return `Today ${time}`;
+  if (day === tomorrow) return `Tomorrow ${time}`;
+  return `${d.toLocaleDateString('en-US', { timeZone: TZ, weekday: 'short', month: 'short', day: 'numeric' })} ${time}`;
 }
 
 function sportEmoji(s) {
   return { tennis: '🎾', pickleball: '🏓', basketball: '🏀' }[s] || '🏟️';
 }
 
+// The datetime-local value for an instant, in the metro's wall clock.
 function toLocalInputValue(d) {
   const pad = n => String(n).padStart(2, '0');
-  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+  const z = zoned(d);
+  return `${z.ymd}T${pad(z.h)}:${pad(z.mi)}`;
 }
 
 function flash(id, text, isError) {
@@ -118,6 +159,11 @@ async function fetchCourts() {
       console.warn('Backend unreachable; using bundled courts.json', e);
       state.dataSource = 'offline-fallback';
     }
+  } else if (CFG.SUPABASE_URL && CFG.SUPABASE_ANON_KEY) {
+    // Configured, but the client library never ran (a blocked CDN, a failed integrity check): that is
+    // "unreachable", not "offline" (v1.4.0).
+    console.warn('The backend is configured but supabase-js did not load; using bundled courts.json');
+    state.dataSource = 'offline-fallback';
   }
   const res = await fetch('assets/data/courts.json');
   if (!res.ok) throw new Error(`Failed to load courts.json: ${res.status}`);
@@ -156,7 +202,7 @@ function renderDataSource() {
    SEASONAL THEME ENGINE
    ============================================================ */
 function getCurrentSlamTheme(now = new Date()) {
-  const today = now.toISOString().slice(0, 10);
+  const today = zoned(now).ymd;
   for (let i = GRAND_SLAMS.length - 1; i >= 0; i--) {
     if (today >= GRAND_SLAMS[i].activate) {
       return GRAND_SLAMS[i];
@@ -171,7 +217,7 @@ function applyTheme() {
   document.documentElement.setAttribute('data-theme', slam.id);
 
   const now = new Date();
-  const today = now.toISOString().slice(0, 10);
+  const today = zoned(now).ymd;
   const inProgress = today >= slam.start && today <= slam.end;
 
   document.getElementById('slam-name').textContent = inProgress
@@ -271,8 +317,9 @@ function scoreAvailability(court, now = new Date()) {
     }
   }
 
-  const hour = now.getHours();
-  const day = now.getDay();
+  const z = zoned(now);                    // the court's clock, not the device's
+  const hour = z.h;
+  const day = z.wd;
   const isWeekend = (day === 0 || day === 6);
 
   let pressure;
@@ -308,11 +355,12 @@ function availabilityLabel(status) {
 
 function availabilityNote(score, court) {
   if (score.source === 'live') {
+    // "by a player", not "on the ground": nothing checks where a reporter stands (audit 2026-11-07).
     return live()
-      ? `Reported ${score.ageMin} min ago by a player on the ground.`
+      ? `Reported ${score.ageMin} min ago by a player.`
       : `Reported ${score.ageMin} min ago on this device.`;
   }
-  const hour = new Date().getHours();
+  const hour = zoned(new Date()).h;
   const isEvening = hour >= 17 && hour <= 21;
   if (court.tier === "private") return "Private facility — public access not available.";
   if (score.status === "open") return court.court_count >= 6
@@ -884,15 +932,18 @@ async function sendSignInLink(email) {
 function showPickupForm(court) {
   const slot = document.getElementById('pickup-form-slot');
   if (!slot) return;
+  // Half an hour ahead, on the metro's :00 or :30; the form is read in the metro's wall clock too.
   const start = new Date(Date.now() + 30 * 60000);
-  start.setMinutes(start.getMinutes() - (start.getMinutes() % 30), 0, 0);
+  start.setTime(start.getTime() - (zoned(start).mi % 30) * 60000);
+  start.setSeconds(0, 0);
+  const tz = zoneTag(start);
   slot.innerHTML = `
     <form class="pickup-form" id="pickup-form">
       <div class="pickup-form-title">Start a pickup at ${esc(court.name)}</div>
       <label>Sport
         <select name="sport">${court.sports.map(s => `<option value="${esc(s)}">${sportEmoji(s)} ${esc(s)}</option>`).join('')}</select>
       </label>
-      <label>When <input type="datetime-local" name="starts_at" required value="${toLocalInputValue(start)}"></label>
+      <label>When${tz ? ` (${esc(tz.trim())})` : ''} <input type="datetime-local" name="starts_at" required value="${toLocalInputValue(start)}"></label>
       <label>Players <input type="number" name="capacity" min="2" max="30" value="4" required></label>
       <label>Note <input name="note" maxlength="280" placeholder="Doubles, bring balls"></label>
       <div class="pickup-form-btns"><button type="submit" class="pk-btn">Create</button><button type="button" class="pk-btn ghost" data-close>Cancel</button></div>
@@ -902,7 +953,8 @@ function showPickupForm(court) {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const fd = new FormData(form);
-    const startsAt = new Date(String(fd.get('starts_at')));
+    const startsAt = fromZonedInput(String(fd.get('starts_at')));
+    if (isNaN(startsAt)) { flash('pickup-feedback', 'Pick a date and time.', true); return; }
     try {
       await withProfile(async () => {
         const p = await BE.createPickup({
@@ -1463,7 +1515,7 @@ async function renderProfilePanel() {
       ${tile(s.games, 'games')}${tile(s.wins, 'wins')}${tile(s.mvps, '⭐ MVP')}
       <div class="stand-tile accent"><div class="stand-num">${st ? esc(s.goat_score) : '—'}</div><div class="stand-label">score <button type="button" class="info-btn" data-act="formula" aria-label="How the score is computed" aria-expanded="false">ⓘ</button></div></div>
     </div>
-    <div class="stand-formula hidden" id="stand-formula">provisional formula: 2 per win, 3 per MVP</div>
+    <div class="stand-formula hidden" id="stand-formula">provisional formula: 2 per win, 3 per MVP · a game counts when its result came 20+ min after the start, up to 3 a day</div>
     ${st ? '' : `<div class="pickup-form-note">Standing unavailable right now.</div>`}
     <div id="acct" class="acct">${accountHtml()}</div>`);
 }
@@ -1804,8 +1856,8 @@ function wireEvents() {
 
 function updateTime() {
   const now = new Date();
-  const opts = { weekday: 'short', hour: 'numeric', minute: '2-digit', hour12: true };
-  document.getElementById('current-time').textContent = now.toLocaleString('en-US', opts).toUpperCase();
+  const opts = { timeZone: TZ, weekday: 'short', hour: 'numeric', minute: '2-digit', hour12: true };
+  document.getElementById('current-time').textContent = (now.toLocaleString('en-US', opts) + zoneTag(now)).toUpperCase();
 }
 
 /* ============================================================

@@ -98,6 +98,15 @@ select test.check((select count(*) from public.my_notifications where kind = 'le
 select test.check((select count(*) from public.pickup_roster(test.get('p1')::uuid)) = 2, 'the roster has two players');
 commit;
 
+-- Invitations go to friends only (0006). For this section A is friends with B and C: the edges are
+-- seeded by the owner, without notifications, and removed before "Cancel", so t_030 starts the
+-- friendship flow from nothing.
+begin;
+insert into public.friendships (requester_id, addressee_id) values
+  (test.get('A')::uuid, test.get('B')::uuid), (test.get('B')::uuid, test.get('A')::uuid),
+  (test.get('A')::uuid, test.get('C')::uuid), (test.get('C')::uuid, test.get('A')::uuid);
+commit;
+
 -- Invitations
 begin;
 select test.login(test.get('A')::uuid);
@@ -138,6 +147,12 @@ select test.login(test.get('A')::uuid);
 select public.invite_to_pickup(test.get('p2')::uuid, test.get('C')::uuid);
 select public.cancel_invitation(test.get('p2')::uuid, test.get('C')::uuid);
 select test.expect_error(format($$select public.cancel_invitation(%L, %L)$$, test.get('p2'), test.get('C')), 'no_invitation', 'cancelling twice reports no invitation');
+commit;
+
+begin;
+delete from public.friendships
+where requester_id in (test.get('A')::uuid, test.get('B')::uuid, test.get('C')::uuid)
+  and addressee_id in (test.get('A')::uuid, test.get('B')::uuid, test.get('C')::uuid);
 commit;
 
 -- Cancel

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Tests scripts/provision-supabase.sh against test/provision/mock-api.py (a stand-in for the Supabase
 # Management API; nothing here reaches supabase.com). Asserts, in order:
-#   provision: exit 0; the temp config holds the mock's URL and the anon key; GOOGLE_MAP_ID/METRO kept;
+#   provision: exit 0; the temp config holds the mock's URL and the anon key; GOOGLE_MAP_ID/METRO/CAPTCHA_SITE_KEY kept;
 #              neither privileged key appears in stdout, stderr or the config; the token never appears;
 #              the migrations ran in order exactly once and were recorded; the seed ran; pg_cron in pg_catalog
 #   second run: exit 0 and nothing new applied (history-based skip)
@@ -36,7 +36,8 @@ window.OPENCOURT_CONFIG = {
   SUPABASE_URL: '',
   SUPABASE_ANON_KEY: '',
   GOOGLE_MAP_ID: 'map-id-to-keep',
-  METRO: 'LA'
+  METRO: 'LA',
+  CAPTCHA_SITE_KEY: 'captcha-key-to-keep'
 };
 EOF
 
@@ -66,6 +67,7 @@ assert 'config holds the mock URL' "grep -q \"SUPABASE_URL: '$BASE'\" '$WORK/con
 assert 'config holds the anon key' "grep -q \"SUPABASE_ANON_KEY: '$ANON'\" '$WORK/config.js'"
 assert 'config kept GOOGLE_MAP_ID' "grep -q \"GOOGLE_MAP_ID: 'map-id-to-keep'\" '$WORK/config.js'"
 assert 'config kept METRO' "grep -q \"METRO: 'LA'\" '$WORK/config.js'"
+assert 'config kept CAPTCHA_SITE_KEY' "grep -q \"CAPTCHA_SITE_KEY: 'captcha-key-to-keep'\" '$WORK/config.js'"
 assert 'config.js still parses' "{ command -v node >/dev/null 2>&1 && node --check '$WORK/config.js'; } || python3 -I -c \"import sys; t=open('$WORK/config.js').read(); sys.exit(0 if 'window.OPENCOURT_CONFIG = {' in t else 1)\""
 for s in $(state | pyq '" ".join(d["secrets_to_never_see"])'); do
   assert "privileged key ${s:0:22}… absent from output" "! grep -qF '$s' '$WORK/first.out'"

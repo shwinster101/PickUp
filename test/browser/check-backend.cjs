@@ -14,6 +14,14 @@ const CONFIG = "window.OPENCOURT_CONFIG = { SUPABASE_URL: 'https://fake.supabase
 
 async function newPage(browser, realtime, errors) {
   const ctx = await browser.newContext({ viewport: { width: 1280, height: 800 } });
+  // The page pins supabase-js with an integrity hash (v1.4.0); here the fake stands in for it, so the page
+  // is served without that one attribute. The real file and its hash: test/browser/check-hardening.cjs.
+  // Registered first, so it runs last: config.js and the CDN routes below answer before it.
+  await ctx.route('**/*', async (r) => {
+    if (r.request().resourceType() !== 'document') return r.fallback();
+    const res = await r.fetch();
+    return r.fulfill({ response: res, body: (await res.text()).replace(/\s+integrity="sha384-[^"]+"\s+crossorigin="anonymous"/, '') });
+  });
   await ctx.clock.install();                                   // real-time ticking; runFor() jumps ahead
   if (realtime !== undefined) await ctx.addInitScript({ content: `window.__fakeRealtime = ${JSON.stringify(realtime)};` });
   await ctx.addInitScript({ path: FAKE });

@@ -1,5 +1,32 @@
 # CLAUDE.md — OpenCourt (PickUp's successor)
 
+**v1.4.0 — SIGNALS THAT COST SOMETHING, ONE NUMBER FOR REAL USE, LOS ANGELES TIME, A PINNED CLIENT THAT IS
+CHECKED, AND PLAYERS WHO CAN BE DELETED.** Owner (2026-11-07), replying to the audit: "A decision on how much
+abuse to block … A usage measure. Decide which number shows real use before building more features. · Next
+tier: the CDN script has no integrity hash, all times use the visitor's device clock instead of LA time, the
+stale push-to-github.sh is a hazard, and organisers can't be deleted. · Email later".
+- **`supabase/migrations/0006_limits_standing_usage.sql`:** reports from one session cover ≤ 3 courts an
+  hour; ≤ 5 open pickups and ≤ 10 created per day per organiser; invitations to mutual friends only; friend
+  requests ≤ 10 an hour, ≤ 20 unanswered, none for 7 days after a decline; standing counts a game only when
+  its result came 20+ minutes after the start, ≤ 3 a day, MVPs only on counted games; `anon` loses
+  `player_standing` (Supabase's default grants had given it); a player can be deleted (finished games stay,
+  organiser empty; open pickups cancelled, players told); the owner-only `metrics` schema
+  (`usage_weekly`, `phase5_gate`, `exclusions`). The audit probes flip: deletion works; the farm earns 0
+  instead of 50; strangers get 0 invitations; one session gets 5 pickups, not 50; all 18 courts take 6
+  sessions, not 1. **Not yet on the live project** (owner: `supabase/README.md`, "After v1.4.0").
+- **The page:** every clock is Los Angeles time (PST/PDT shown only to devices elsewhere); the live note
+  says "by a player", not "on the ground"; the ⓘ states the standing rules; supabase-js carries its
+  `sha384` integrity hash, and a refused client reads "Backend unreachable"; an optional Cloudflare
+  Turnstile check (`CAPTCHA_SITE_KEY`, off; the provisioner keeps it); messages for the new refusals.
+  `push-to-github.sh` deleted. No location check (the server cannot verify one).
+- **The number for real use:** real games per Los Angeles week (started, not cancelled, 2+ players who are
+  not the owner or a test account); the Phase 5 gate is 4 complete weeks in a row with one.
+- **Gate:** `sh scripts/check.sh --backend` → GATE PASSED, **220 assertions** (`t_050` adds 38; `t_020`
+  and `t_030` now befriend before inviting and give games 35 minutes). `check-hardening.cjs` (new):
+  time on an LA and a UTC device, the integrity hash good and refused, CAPTCHA on and off: all pass. Offline
+  check 20 pins; fake-backend check only this sandbox's blocked hosts; stand-in smoke 44/44; two-browser
+  proof 8/8 twice; provisioner mock 41/41. Working note: `working/2026-11-07-limits-usage-next-tier.md`.
+
 **v1.3.5 — THE AUDIT: PRODUCTION IS LIVE, BUT ITS EMAIL, ITS PAUSE AND ITS SIGNALS HAVE NO OWNER; THE RECORD
 CATCHES UP.** Owner (2026-11-07): "Run an Audit on pickup", and mid-pass "Do we still have a domain".
 - **Domain:** no purchased domain has ever existed (no `CNAME`; SETUP §c's `opencourt.la` is an example). The
@@ -257,7 +284,7 @@ against a local stand-in (and ran 8/8 against the real project on 2026-10-18). T
   server-minted anonymous id; no header, body field or query parameter names the actor. Every
   organiser-only, invitee-only, capacity and one-vote rule lives in SQL under row-level security.
 - **No build step until a build step is necessary.** Plain HTML/CSS/JS, deployable as-is; a client
-  library is a pinned CDN script.
+  library is a pinned CDN script with its integrity hash (v1.4.0).
 - **Forward-compatible schema.** Every record carries `metro`; migrations add, never rename or drop
   without a deprecation note in `working/`.
 - **Secrets never enter this repository.** The referrer-restricted Google Maps browser key and a
@@ -283,16 +310,21 @@ solution.
 
 ```bash
 sh scripts/check.sh              # the gate: data parses, scripts parse, no secret-shaped strings, seed current
-sh scripts/check.sh --backend    # + migrations, RLS matrix, the ported 2021 flows and the realtime publication
-                                 #   on a throwaway PostgreSQL (182 assertions)
+sh scripts/check.sh --backend    # + migrations, RLS matrix, the ported 2021 flows, the realtime publication and
+                                 #   0006's limits, deletion, standing rules and usage measure (220 assertions)
 python3 -m http.server 8000      # the only local origin the Maps key allows; then, with Playwright on NODE_PATH:
 PORT=8000 node test/browser/check-offline.cjs /tmp/offline.png                               # 20 pins, no errors
 PORT=8000 node test/browser/check-backend.cjs test/browser/fake-supabase.js /tmp/backend.png  # every screen, errors []
+PORT=8000 node test/browser/check-hardening.cjs test/browser/fake-supabase.js <npm package>/dist/umd  # LA time, SRI, CAPTCHA
 sh test/e2e/local-stack.sh start && sh test/e2e/smoke-local-backend.sh                        # the stand-in, 44 checks
 OC_SUPABASE_URL=http://127.0.0.1:54400 OC_SUPABASE_ANON_KEY=local-anon node test/e2e/two-browsers.cjs  # 8 steps
 sh test/e2e/local-stack.sh stop
-bash test/provision/run.sh       # the provisioner against a mock of the Management API (40 assertions)
+bash test/provision/run.sh       # the provisioner against a mock of the Management API (41 assertions)
 ```
+
+`<npm package>`: `npm pack @supabase/supabase-js@2.45.4 && tar -xzf supabase-supabase-js-2.45.4.tgz` (→
+`package/dist/umd`). Where `cdn.jsdelivr.net` is blocked (this cloud environment), the real-client checks
+need that file routed in place of the CDN; the integrity hash then proves it is the same file.
 
 The backend leg and the stand-in need the PostgreSQL server binaries (the leg skips with a message
 otherwise; set `REQUIRE_BACKEND=1` to fail instead). Pushes to `main` deploy Pages automatically, and

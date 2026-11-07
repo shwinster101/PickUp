@@ -54,7 +54,7 @@
       <button class="inbox-btn hidden" id="inbox-btn" type="button" aria-label="Notifications">
         <span aria-hidden="true">🔔</span><span class="inbox-count hidden" id="inbox-count">0</span>
       </button>
-      <span class="version">v1.3.5</span>
+      <span class="version">v1.4.0</span>
     </div>
     <div class="inbox" id="inbox" aria-live="polite"></div>
   </header>
@@ -174,8 +174,9 @@
 
 <!-- Runtime configuration (public, client-side values only) -->
 <script src="assets/js/config.js"></script>
-<!-- supabase-js, pinned. Loaded only to talk to the shared backend; harmless when config.js is empty. -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js" defer></script>
+<!-- supabase-js, pinned, with its integrity hash (sha384 of dist/umd/supabase.js in the npm tarball of 2.45.4,
+     the file jsDelivr serves): a changed file is refused and the page says "Backend unreachable". -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js" integrity="sha384-0w2KAL2YHP6wKOkUDzkCDGgVvfmHnj02DHeQ6XcHOgTfFsGyonKOpShMH1x6nk9o" crossorigin="anonymous" defer></script>
 <!-- Backend client, then the application -->
 <script src="assets/js/backend.js" defer></script>
 <script src="assets/js/app.js" defer></script>

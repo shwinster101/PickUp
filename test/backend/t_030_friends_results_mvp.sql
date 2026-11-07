@@ -83,6 +83,8 @@ begin;
 select test.login(test.get('A')::uuid);
 select test.set('p4', (select id::text from public.create_pickup('memorial-park-sm', 'tennis', now() - interval '5 minutes', 4)));
 commit;
+-- A game takes time (0006: a result counts toward standing 20+ minutes after the start): p4 began 35 minutes ago.
+begin; update public.pickups set starts_at = now() - interval '35 minutes' where id = test.get('p4')::uuid; commit;
 begin; select test.login(test.get('B')::uuid); select public.join_pickup(test.get('p4')::uuid); commit;
 begin; select test.login(test.get('C')::uuid); select public.join_pickup(test.get('p4')::uuid); commit;
 begin; select test.check(public.start_due_pickups() >= 1, 'the clock starts p4'); commit;
@@ -148,6 +150,7 @@ commit;
 
 -- Tie-break among the leaders only. p5: A, B, C, E. Votes: A→B, B→A, C→A, E→B → A:2, B:2, C:0, E:0.
 begin; select test.login(test.get('A')::uuid); select test.set('p5', (select id::text from public.create_pickup('memorial-park-sm', 'tennis', now() - interval '5 minutes', 4))); commit;
+begin; update public.pickups set starts_at = now() - interval '35 minutes' where id = test.get('p5')::uuid; commit;
 begin; select test.login(test.get('B')::uuid); select public.join_pickup(test.get('p5')::uuid); commit;
 begin; select test.login(test.get('C')::uuid); select public.join_pickup(test.get('p5')::uuid); commit;
 begin; select test.login(test.get('E')::uuid); select public.join_pickup(test.get('p5')::uuid); commit;
@@ -166,6 +169,7 @@ commit;
 
 -- Deadline: p6 closed with one vote of two; 24 h later the vote closes with what it has.
 begin; select test.login(test.get('A')::uuid); select test.set('p6', (select id::text from public.create_pickup('memorial-park-sm', 'tennis', now() - interval '5 minutes', 2))); commit;
+begin; update public.pickups set starts_at = now() - interval '35 minutes' where id = test.get('p6')::uuid; commit;
 begin; select test.login(test.get('B')::uuid); select public.join_pickup(test.get('p6')::uuid); commit;
 begin; select public.start_due_pickups(); commit;
 begin;
@@ -175,7 +179,8 @@ select test.check(public.vote_mvp(test.get('p6')::uuid, test.get('B')::uuid) = f
 commit;
 begin;
 select test.check(public.finalize_due_mvp_votes() = 0, 'nothing is due yet');
-update public.pickups set ends_at = now() - interval '25 hours' where id = test.get('p6')::uuid;
+-- The whole game moves a day back (start and end), so it still lasted 35 minutes.
+update public.pickups set ends_at = ends_at - interval '25 hours', starts_at = starts_at - interval '25 hours' where id = test.get('p6')::uuid;
 select test.check(public.finalize_due_mvp_votes() = 1, 'after 24 h the vote closes');
 select test.check((select mvp_id from public.pickups where id = test.get('p6')::uuid) = test.get('B')::uuid, 'B is MVP of p6 with the one vote cast');
 commit;

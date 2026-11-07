@@ -2,7 +2,7 @@
 
 **Issue · goal · vision · mission · personas · user stories · workflow · fundamental requirements**
 
-**Version 1.3.5 · 2026-11-07 · Status: adopted as the north star for the PickUp → OpenCourt migration; the shared backend (M1–M3 SQL and screens, M4 realtime + account) is built, proven in two browsers against a local stand-in, and live on the Supabase project `pickup` since 2026-10-18 (v1.3.1).**
+**Version 1.4.0 · 2026-11-07 · Status: adopted as the north star for the PickUp → OpenCourt migration; the shared backend (M1–M3 SQL and screens, M4 realtime + account) is built, proven in two browsers against a local stand-in, and live on the Supabase project `pickup` since 2026-10-18 (v1.3.1).**
 
 > **Correction (2026-11-07 audit):** this line and every "awaiting the project" in §5's status column were
 > true until 2026-10-18; the project has been live since then. Two qualifiers the column does not show: the
@@ -332,7 +332,7 @@ IDs continue the SRS numbering (`REQUIREMENTS.md` owns FR-01–53, DR-01–07, N
 | 2 — shared backend | Courts and reports come from the backend; reports are shared across devices, rate-limited and decay; the site still deploys from `main` with no build step; the gate passes. |
 | 3 — people & pickups | The 2021 pytest flows pass against the new API; a pickup can be created on a court, joined to capacity, started by the clock, scored with team members, MVP-voted fairly; notifications arrive by trigger; RLS tests prove a player cannot act as another. |
 | 4 — multi-city | A second metro's courts load behind a city picker with no schema change. |
-| 5 — social | Only after 3 is used weekly by people who are not the owner. |
+| 5 — social | Only after 3 is used weekly by people who are not the owner. **Measured (v1.4.0):** `metrics.phase5_gate` — met when each of the last 4 complete Los Angeles weeks had at least one *real game* (a pickup that started, was not cancelled, and had 2+ players who are neither the owner nor a test account; `metrics.usage_weekly`). |
 
 ---
 

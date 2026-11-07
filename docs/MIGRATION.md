@@ -248,7 +248,12 @@ the plan got wrong, the commit SHAs), per `CLAUDE.md`.
 | M4 | 🔶 realtime publication (`0005`, `t_040` 15) and channel with honest fallback; Keep this account · magic-link sign-in · Sign out. ⬜ push, share cards, "I'm here, need a 4th". Delivery and the email round trips are provable only on a real project | `0005_realtime.sql`, `backend.js subscribe()`, `check-backend.cjs` (SUBSCRIBED and CHANNEL_ERROR contexts) |
 | M5 | ⬜ | — |
 | Provisioning | ✅ scripted and tested against a mock (40 assertions); ⬜ run for real (no token in the build environment) | `scripts/provision-supabase.sh`, `test/provision/` |
-| The proof | ✅ two browsers share a report, a pickup, a join, an inbox line and a share link on the local stand-in (3 runs, 8/8); ⬜ on the real project | `test/e2e/local-backend.py`, `local-stack.sh`, `smoke-local-backend.sh` (44), `two-browsers.cjs` |
+| The proof | ✅ two browsers share a report, a pickup, a join, an inbox line and a share link on the local stand-in (3 runs, 8/8); ✅ on the real project 2026-10-18 (8/8 on the second run) | `test/e2e/local-backend.py`, `local-stack.sh`, `smoke-local-backend.sh` (44), `two-browsers.cjs` |
+| Limits & measure (v1.4.0) | ✅ `0006` built and tested (`t_050`, 38); ⬜ applied to the live project (owner: `supabase/README.md`, "After v1.4.0") | the audit probes flip: `working/2026-11-07-limits-usage-next-tier.md` |
+
+> **2026-11-07:** the project `pickup` has been live since 2026-10-18 (M1–M4 provisioned, `a04ce05`); the
+> ⬜ provisioned marks above are history. Row "Anonymous abuse of pickups" in §8 is superseded twice: by
+> the v1.2.0 ruling (a profile on an anonymous session is enough) and by `0006`'s per-player limits.
 
 Deviations from the plan above, each recorded as a ruling in `docs/project-conventions.md`: a
 profile on an anonymous session is enough to play; notifications are written inside the RPC

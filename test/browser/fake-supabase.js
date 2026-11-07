@@ -56,7 +56,7 @@ window.OPENCOURT_CONFIG = { SUPABASE_URL: 'https://fake.supabase.co', SUPABASE_A
     },
     edges: () => edges.slice(), votes: () => votes.slice(), rosters,
     profile: () => profile,
-    auth: { updates: [], otps: [], events: [] },
+    auth: { updates: [], otps: [], events: [], anon: [] },
     channels: []
   };
   const rosterRows = (id) => (rosters[id] || []).map(r => Object.assign({ username: (byId(r.player_id) || {}).username, display_name: (byId(r.player_id) || {}).display_name || '?', joined_at: null }, r));
@@ -187,7 +187,7 @@ window.OPENCOURT_CONFIG = { SUPABASE_URL: 'https://fake.supabase.co', SUPABASE_A
   const emit = (event) => { window.__fake.auth.events.push(event); if (authCb) setTimeout(() => authCb(event, session), 0); };
   const auth = {
     async getSession() { return { data: { session } }; },
-    async signInAnonymously() { session = { user: { id: me, email: null, new_email: null, is_anonymous: true } }; emit('SIGNED_IN'); return { data: { session }, error: null }; },
+    async signInAnonymously(creds) { window.__fake.auth.anon.push(creds || null); session = { user: { id: me, email: null, new_email: null, is_anonymous: true } }; emit('SIGNED_IN'); return { data: { session }, error: null }; },
     onAuthStateChange(cb) { authCb = cb; setTimeout(() => cb('INITIAL_SESSION', session), 0); return { data: { subscription: { unsubscribe() { authCb = null; } } } }; },
     async updateUser(attrs, opts) {
       window.__fake.auth.updates.push({ attrs, opts });

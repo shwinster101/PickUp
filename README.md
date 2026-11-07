@@ -73,7 +73,6 @@ opencourt-la/
 │   ├── RESEARCH_NOTES.md        # Background research
 │   └── ROADMAP.md               # Phase 1/2/3 plan
 ├── .github/workflows/pages.yml  # Auto-deploy to GitHub Pages
-├── push-to-github.sh            # One-shot init + push + enable Pages (needs gh CLI)
 ├── .gitignore
 ├── LICENSE
 └── README.md

@@ -177,10 +177,13 @@ async function fillProfile(page, who) {
 // A flash element's text once it has one.
 const waitFlash = (page, id) => waitFor(page, (i) => { const el = document.getElementById(i); const t = el && el.textContent.trim(); return t || false; }, id, `#${id}`);
 
-// datetime-local value for a local time: YYYY-MM-DDTHH:mm
+// datetime-local value for an instant, in Los Angeles wall-clock time: the page reads its form in the
+// metro's zone whatever the device's zone is (v1.4.0). YYYY-MM-DDTHH:mm
 function localInput(d) {
-  const p = (n) => String(n).padStart(2, '0');
-  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`;
+  const p = {};
+  new Intl.DateTimeFormat('en-US', { timeZone: 'America/Los_Angeles', hourCycle: 'h23', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })
+    .formatToParts(d).forEach(x => { p[x.type] = x.value; });
+  return `${p.year}-${p.month}-${p.day}T${String(+p.hour % 24).padStart(2, '0')}:${p.minute}`;
 }
 
 // ---- the step runner ---------------------------------------------------------------------------
@@ -264,7 +267,7 @@ async function step(n, name, needs, fn) {
     const d = await openCourt(B.page);
     const recent = await recentCount(B.page, COURT_ID);          // uncapped: A's one report, exactly
     const got = reportCount(d.reports);                           // the panel: the same view, capped at 5
-    const ageOk = /^Reported \d+ min ago by a player on the ground\.$/.test(d.note || '');
+    const ageOk = /^Reported \d+ min ago by a player\.$/.test(d.note || '');
     if (d.source !== LIVE_SOURCE || d.label !== 'Likely open' || !ageOk || recent !== recentBefore + 1 || got !== Math.min(recent, 5)) {
       throw new Error(`#data-source "${src}" · source "${d.source}" · label "${d.label}" · note "${d.note}" · recent_report_count ${recent} (expected ${recentBefore + 1}: A read ${recentBefore} before reporting, B reported nothing) · Recent reports "${d.reports}" (expected ${Math.min(recent, 5)})`);
     }

@@ -1,6 +1,6 @@
 # The shared backend (Supabase Postgres)
 
-This folder is the whole backend: five SQL migrations and a seed. There is no server code to
+This folder is the whole backend: six SQL migrations and a seed. There is no server code to
 deploy. The frontend talks to the database through PostgREST and the RPC functions the
 migrations create; every rule lives in SQL under `auth.uid()` and row-level security
 (`docs/MIGRATION.md` §3–5). The same files run against a plain PostgreSQL in
@@ -13,6 +13,7 @@ migrations create; every rule lives in SQL under `auth.uid()` and row-level secu
 | `migrations/0003_friends_results_mvp.sql` | M3 | `friendships` and its functions, `search_players`, `pickup_teams`, `record_result`, `mvp_votes`, `vote_mvp`, `finalize_due_mvp_votes`, `expire_stale_pickups`, the `player_standing` view |
 | `migrations/0004_schedules.sql` | — | the three `pg_cron` jobs (prints a notice where pg_cron is absent) |
 | `migrations/0005_realtime.sql` | M4 | adds `pickups`, `pickup_attendees` and `notifications` to the `supabase_realtime` publication where it exists (reports stay polled: author-only RLS) |
+| `migrations/0006_limits_standing_usage.sql` | v1.4.0 | per-player limits (reports, pickups, friend requests; invitations to friends only), deletable players, standing that resists farming, `anon` off `player_standing`, the owner-only `metrics` schema (`usage_weekly`, `phase5_gate`, `exclusions`) |
 | `seed.sql` | — | the 20 curated courts, generated from `assets/data/courts.json` by `scripts/export-courts-seed.mjs` |
 
 ## One command
@@ -42,7 +43,7 @@ scripts/provision-supabase.sh --check   # project healthy · config.js holds the
 - **Schema already applied by hand** (steps 4–5 below)? The history is empty, so the script stops
   before re-running `0001`; `SUPABASE_ASSUME_APPLIED=1` records the migration files as applied without
   running them.
-- **Tested against a mock of the API, not a project:** `bash test/provision/run.sh` (40 assertions:
+- **Tested against a mock of the API, not a project:** `bash test/provision/run.sh` (41 assertions:
   order, idempotency, key hygiene, `--check`, `--dry-run`, the failure path). No run against
   supabase.com has happened from this repository; the first real run is the owner's, and step 7
   below (two browsers, one report) remains the proof.
@@ -65,6 +66,29 @@ scripts/provision-supabase.sh --check   # project healthy · config.js holds the
    is a public, publishable credential; the service-role key must never leave the dashboard.
 7. **Open the page**: the sidebar reads "Shared data"; a report on one browser shows on another
    within 5 minutes (or on reload); "Pickups here" appears on each public court.
+
+## After v1.4.0: apply 0006, then the measure, the bot check and deletions (owner)
+
+1. **Apply `0006`** to the live project: re-run `scripts/provision-supabase.sh` (recorded migrations
+   are skipped, so only `0006` runs), or paste the file whole into the SQL editor. The page works before
+   and after it; nothing on the page waits for it.
+2. **Leave yourself out of the measure:** in the SQL editor,
+   `insert into metrics.exclusions (player_id, reason) select id, 'owner' from public.profiles where username = '<your username>';`
+   (repeat for any device you tested on). Players of the two-browser proof are left out on their own
+   (their pickup's note starts `two-browsers `).
+3. **Read real use, weekly:** `select * from metrics.usage_weekly;` (Los Angeles weeks, newest first;
+   `real_games` is the number: pickups that started that week, not cancelled, with 2 or more players who
+   are not you or a test) and `select * from metrics.phase5_gate;` (met when each of the last 4 complete
+   weeks had a real game: FOUNDATION §8). Sock puppets would count too; read it as an upper bound.
+4. **Turn on the bot check when you want it** (optional; the limits work without it). In this order:
+   a. Cloudflare dashboard → Turnstile → add a site for `shwinster101.github.io` (widget mode *Managed*
+      or *Invisible*); copy the site key and the secret.
+   b. Put the **site key** (public) in `assets/js/config.js` as `CAPTCHA_SITE_KEY` and deploy it.
+   c. Supabase → Authentication → Attack Protection (Bot and Abuse Protection) → enable CAPTCHA,
+      provider Turnstile, paste the **secret** there (never in this repository).
+   The other order (c before b) refuses every sign-in until the page sends tokens.
+5. **Deleting a player now works** (Authentication → Users → delete): their finished games stay in
+   everyone else's record with an empty organiser; their open pickups are cancelled and the players told.
 
 ## Keeping it honest
 

@@ -24,6 +24,41 @@ and the working rhythm. Read before changes.
 
 ## Locked decisions
 
+### Signals cost something; one number for real use; every clock is the metro's (build rulings 2026-11-07, v1.4.0)
+
+**Owner (2026-11-07):** "A decision on how much abuse to block … A usage measure. Decide which number shows
+real use before building more features. · Next tier: the CDN script has no integrity hash, all times use the
+visitor's device clock instead of LA time, the stale push-to-github.sh is a hazard, and organisers can't be
+deleted. · Email later". The interpretations below were recorded before the build
+(`working/2026-11-07-limits-usage-next-tier.md`); the owner may change any number in one place, `0006`.
+
+- **Abuse posture: slow and visible, not impossible.** Identity is free, so SQL limits make each fake cost
+  sessions and time: reports from one session cover ≤ 3 courts an hour (the 15-minute rule per court
+  stays); ≤ 5 open pickups and ≤ 10 created per 24 h per organiser; invitations to mutual friends only;
+  friend requests ≤ 10 an hour, ≤ 20 unanswered, none for 7 days after a decline. **No location check:**
+  the server cannot verify a browser's position, so the live note says "by a player", not "on the ground".
+- **The bot check is ready and off.** `CAPTCHA_SITE_KEY` in `config.js` turns on Cloudflare Turnstile for
+  every sign-in; the secret lives only in Supabase. Page first, dashboard second (the reverse refuses
+  every sign-in). The provisioner keeps the key across runs.
+- **Standing resists farming:** a game counts when its result came ≥ 20 minutes after its start; ≤ 3
+  counted games per player per Los Angeles day; an MVP counts only on a counted game. Still provisional.
+  `player_standing` is for signed-in players only (`anon` had it through Supabase's default grants).
+- **A player can be deleted:** finished games stay for everyone else with an empty organiser; open or
+  running pickups are cancelled and their players told. Organiser checks compare with `is distinct from`.
+- **Real use is one number: real games per week** (a pickup that started that LA week, not cancelled, with
+  ≥ 2 players who are neither in `metrics.exclusions` nor proof accounts). **Phase 5's gate** (FOUNDATION §8)
+  is met when each of the last 4 complete weeks had one. Owner-only, in the SQL editor (`metrics` schema,
+  not exposed by the API); read as an upper bound, since sock puppets count too.
+- **Every clock is the metro's** (`METRO` → `America/Los_Angeles`): the heuristic, pickup times, the new
+  pickup form, the header clock, the theme date. A device elsewhere sees PST/PDT beside each time.
+- **The CDN script carries its integrity hash**, computed from the npm tarball (the file jsDelivr serves).
+  A refused or missing client reads "Backend unreachable", never "Offline data". To bump supabase-js: `npm
+  pack` the new version, hash `dist/umd/supabase.js` (`openssl dgst -sha384 -binary | openssl base64 -A`),
+  update the tag, run `test/browser/check-hardening.cjs`.
+- **`push-to-github.sh` is gone** (it renamed the current branch to `main` and pushed un-gated).
+- **Unchanged:** the no-build rule; RLS as the boundary; email deferred by the owner (the account ladder
+  still needs SMTP and the `/PickUp/` redirect URLs).
+
 ### The people flow on the page; realtime only where honest; provisioning and the proof as scripts (build rulings 2026-10-17/18, v1.3.0)
 
 **Owner (2026-10-17):** "provision Supabase and fill config.js, then open two browsers and confirm a report
@@ -56,8 +91,8 @@ so we don't need a Map ID)".
   is a bug in the stand-in, never a feature of the page.
 - **Browser checks run on `localhost:8000`**, the one local origin the Maps key allows; a check on another
   port reports zero pins for that reason alone.
-- **Migrations stay contiguous** (`0001`–`0005`); the provisioner test derives its expectations from the
-  folder, so a new file never needs a hand edit there.
+- **Migrations stay contiguous** (`0001`–`0005`; `0006` since v1.4.0); the provisioner test derives its
+  expectations from the folder, so a new file never needs a hand edit there.
 - **Unchanged:** every v1.2.0 ruling below; the no-build rule; the seed from `courts.json`; the SRS's
   Supabase choice; the Maps key and billing are the owner's console work.
 

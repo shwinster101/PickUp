@@ -939,6 +939,16 @@ header {
   font-size: 11px;
 }
 
+/* v1.4.0: the optional sign-in check (Cloudflare Turnstile). Invisible unless it needs a tap; then it sits
+   above every layer, bottom centre, until it is answered. */
+.captcha-box {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  z-index: 3000;
+}
+
 /* Responsive */
 @media (max-width: 880px) {
   .app {

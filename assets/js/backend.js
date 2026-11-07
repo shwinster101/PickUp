@@ -63,7 +63,15 @@
     not_an_attendee: 'You did not play this one.',
     votee_not_attendee: 'That player was not in this pickup.',
     no_self_vote: 'You cannot vote for yourself.',
-    already_voted: 'You already voted.'
+    already_voted: 'You already voted.',
+    // 0006 — limits (owner, 2026-11-07)
+    report_limit: 'Reports from one device cover up to 3 courts an hour.',
+    too_many_open_pickups: 'You have 5 open pickups. Cancel one, or wait until one starts.',
+    pickup_limit: 'That makes 10 new pickups in a day. Try again tomorrow.',
+    invite_friends_only: 'Invite friends only: add them as a friend first.',
+    friend_request_limit: 'That makes 10 requests this hour. Try again later.',
+    too_many_pending_requests: 'You have 20 unanswered requests. Wait for some answers first.',
+    request_declined_recently: 'They declined recently. Try again in a few days.'
   };
 
   function wrap(e) {
@@ -104,11 +112,55 @@
     return session;
   }
 
+  // Optional bot check before a sign-in (owner, 2026-11-07). Off while config.js has no CAPTCHA_SITE_KEY:
+  // no script loads and nothing changes. On: Cloudflare Turnstile issues a token (invisible unless it needs
+  // a tap) and every sign-in carries it, as Supabase Auth requires once its CAPTCHA protection is enabled
+  // with the matching secret. Order matters: the key here first, the dashboard second; the other order
+  // refuses every sign-in (supabase/README.md). Turnstile API: render(el, { sitekey, callback,
+  // 'error-callback', 'timeout-callback', appearance }) and remove(id), with ?render=explicit.
+  let turnstileLoad = null;
+  function loadTurnstile() {
+    if (!turnstileLoad) {
+      turnstileLoad = new Promise((resolve, reject) => {
+        if (window.turnstile) return resolve(window.turnstile);
+        const s = document.createElement('script');
+        s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+        s.async = true;
+        s.onload = () => (window.turnstile ? resolve(window.turnstile) : reject(new Error('The sign-in check did not start. Try again.')));
+        s.onerror = () => { turnstileLoad = null; reject(new Error('The sign-in check could not load. Try again.')); };
+        document.head.appendChild(s);
+      });
+    }
+    return turnstileLoad;
+  }
+  async function captchaToken() {
+    if (!cfg.CAPTCHA_SITE_KEY) return undefined;
+    const ts = await loadTurnstile();
+    return new Promise((resolve, reject) => {
+      const box = document.createElement('div');
+      box.className = 'captcha-box';
+      document.body.appendChild(box);
+      let id = null;
+      const done = (fn, value) => { try { if (id != null) ts.remove(id); } catch (e) { /* already gone */ } box.remove(); fn(value); };
+      id = ts.render(box, {
+        sitekey: cfg.CAPTCHA_SITE_KEY, appearance: 'interaction-only',
+        callback: (token) => done(resolve, token),
+        'error-callback': () => done(reject, new Error('The sign-in check failed. Try again.')),
+        'timeout-callback': () => done(reject, new Error('The sign-in check timed out. Try again.'))
+      });
+    });
+  }
+  const withCaptcha = async (options) => {
+    const token = await captchaToken();
+    return token ? Object.assign({}, options, { captchaToken: token }) : options;
+  };
+
   // Anonymous identity on first write (FOUNDATION FR-60); upgradeable to an account later (FR-61).
   async function ensureSession() {
     const s = await getSession();
     if (s) return s;
-    const { data, error } = await sb().auth.signInAnonymously();
+    const options = await withCaptcha(undefined);
+    const { data, error } = await sb().auth.signInAnonymously(options ? { options } : undefined);
     if (error) throw wrap(error);
     session = data.session;
     return session;
@@ -121,7 +173,7 @@
   // email is refused by the server ("Signups not allowed for otp") and reads so.
   async function signInWithEmail(email) {
     const { error } = await sb().auth.signInWithOtp({
-      email, options: { emailRedirectTo: redirectTo(), shouldCreateUser: false }
+      email, options: await withCaptcha({ emailRedirectTo: redirectTo(), shouldCreateUser: false })
     });
     if (error) {
       if (/signups not allowed/i.test(error.message || '')) throw Object.assign(new Error('No account with that email yet. Keep this one instead.'), { code: 'no_account' });
