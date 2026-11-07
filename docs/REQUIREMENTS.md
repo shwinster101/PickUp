@@ -1,6 +1,6 @@
 # OpenCourt LA — Software Requirements Specification (SRS)
 
-**Version:** 1.3.1 · **Date:** 2026-10-18 · **Status:** Phase 1 shipped; Phase 2 and the Phase 3 people flow built and proven against a local stand-in (awaiting a Supabase project, one command); PickUp foundation adopted
+**Version:** 1.3.5 · **Date:** 2026-11-07 · **Status:** Phase 1 shipped; Phase 2 and the Phase 3 people flow built, proven against a local stand-in, and live on the Supabase project `pickup` since 2026-10-18; PickUp foundation adopted. *(Corrected 2026-11-07: until then this line read "awaiting a Supabase project, one command".)*
 
 This document consolidates every requirement stated across the CourtFinder project threads into one north star. Each requirement has an ID, a priority, a phase, and a status against the current build.
 
@@ -125,7 +125,7 @@ Out of scope for all phases: court reservations/booking, payments, coaching, equ
 | NFR-01 | No build step; plain HTML/CSS/JS deployable to GitHub Pages as-is | M | 1 | ✅ |
 | NFR-02 | Courts list renders < 500 ms on mobile LTE; report write < 1 s | M | 2 | ⬜ (measure) |
 | NFR-03 | Responsive: desktop split-pane; mobile stacks map (40vh) over list | M | 1 | ✅ |
-| NFR-04 | Google Maps key referrer-restricted (localhost + Pages domain) and API-restricted to Maps JavaScript API before any public push | M | 1 | ⬜ **blocker** |
+| NFR-04 | Google Maps key referrer-restricted (localhost + Pages domain) and API-restricted to Maps JavaScript API before any public push | M | 1 | ✅ referrers and API restriction confirmed in the owner's console screenshots (2026-10-17, CLAUDE.md v1.3.0); no Maps error dialog on `localhost:8000` 2026-11-07 *(was ⬜ blocker)* |
 | NFR-05 | `.gitignore` excludes `.env*`, editor noise, optional Node artifacts | M | 1 | ✅ |
 | NFR-06 | Backend runs unattended for a month: managed infra, free tier or < $10/mo | M | 2 | ⬜ |
 | NFR-07 | Editorial "sport-atlas" visual identity: Fraunces / Inter Tight / JetBrains Mono, warm paper, court-green and clay accents; must not read as generic SaaS dashboard | S | 1 | ✅ |

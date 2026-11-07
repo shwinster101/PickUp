@@ -1,5 +1,30 @@
 # CLAUDE.md — OpenCourt (PickUp's successor)
 
+**v1.3.5 — THE AUDIT: PRODUCTION IS LIVE, BUT ITS EMAIL, ITS PAUSE AND ITS SIGNALS HAVE NO OWNER; THE RECORD
+CATCHES UP.** Owner (2026-11-07): "Run an Audit on pickup", and mid-pass "Do we still have a domain".
+- **Domain:** no purchased domain has ever existed (no `CNAME`; SETUP §c's `opencourt.la` is an example). The
+  site is GitHub's free `https://shwinster101.github.io/PickUp/`: the last deploy (run #10, 2026-10-19 23:24 UTC,
+  v1.3.4) succeeded and GitHub reported that URL. `opencourt.pages.dev` could not be checked from here.
+- **Found, for the owner** (`working/2026-11-07-audit.md`): the account ladder cannot work as configured (no
+  custom SMTP anywhere, and Supabase's default mailer delivers only to the project's team; the 2026-10-18 run
+  set Site URL and redirects to `/OpenCourt/`, now 404); the Free plan pauses after about a week of low
+  activity and nothing watches it; every shared signal is free to fake (throwaway-database probes: 10
+  anonymous sessions turned 18 of 18 public courts Full, one session put 50 pickups on a court, a stranger
+  notified every profile, three sock puppets farmed 10 wins + 10 MVPs in 31 ms); a user who ever organised a
+  pickup cannot be deleted (`pickups_organiser_id_fkey`); no usage is measured, though FOUNDATION §8's one
+  usage gate needs it; no CI runs the gate before Pages deploys.
+- **Fixed in place:** the pickups section said "not configured" when the backend was configured but
+  unreachable; the Maps banner stayed over a map that loaded after 5 s and told visitors to replace a
+  placeholder key; `check-offline.cjs` had read production since `a04ce05` (it now routes an empty config);
+  the badge (v1.3.1 → v1.3.5), the SRS and FOUNDATION status lines and this file's brief, which still said the
+  backend did not exist; NFR-04 to ✅ on the recorded evidence; a caution on running the proof against
+  production; a correction in the repo-rename note (a provisioner re-run would not fix `site_url`).
+- **Verified here:** gate + backend 182 assertions; offline check 20 pins with no Maps dialog on
+  `localhost:8000` (it appeared there on 2026-10-17, so billing looks fixed); fake-backend check (errors are
+  this sandbox's blocked hosts only); stand-in smoke 44/44; two-browser proof 8/8 twice (supabase-js served from
+  the npm tarball, jsDelivr is blocked here); provisioner mock 40/40; both page patches in a browser.
+  **Not verified:** production itself (`github.io`, `supabase.co`, `pages.dev` are outside this session's network).
+
 **v1.3.4 — THE LIST ABOVE THE FOLD ON PHONES.** Owner (2026-10-19): "Run item 1, the list above the fold,
 since finding a court is the first thing a visitor does." Below 880px the sidebar hero is its title and the
 data-source line (the subtitle is hidden), the sport chips stay on the face and tier + status fold behind one
@@ -206,9 +231,10 @@ the repository). It is a court finder for recreational tennis and pickleball in 
 people flow on the page — profiles, pickups on courts, invitations, the inbox, friends, results, MVP,
 standing, an account you can keep — on a **Supabase Postgres backend defined entirely by
 `supabase/migrations/`** (PostgREST + RPC + RLS + one realtime publication; no server code). The page
-runs with or without the backend and says which. `scripts/provision-supabase.sh` creates the project;
-`test/e2e/` proves the shared flow in two browsers, against a local stand-in today and the real project
-tomorrow. There is no package manager and no framework; the only runtime dependency is the pinned
+runs with or without the backend and says which. **The backend is live:** `scripts/provision-supabase.sh`
+created the project `pickup` (us-west-1, Free plan) on 2026-10-18, `config.js` has held its URL and anon key
+since `a04ce05`, and Pages has served it since PR #2. `test/e2e/` proves the shared flow in two browsers
+against a local stand-in (and ran 8/8 against the real project on 2026-10-18). There is no package manager and no framework; the only runtime dependency is the pinned
 `supabase-js` UMD script. The version is the headline of this file; `index.html`'s badge and
 `docs/REQUIREMENTS.md` carry the same number.
 
@@ -269,10 +295,10 @@ bash test/provision/run.sh       # the provisioner against a mock of the Managem
 ```
 
 The backend leg and the stand-in need the PostgreSQL server binaries (the leg skips with a message
-otherwise; set `REQUIRE_BACKEND=1` to fail instead). Pushes to `main` deploy Pages automatically. No
-production activation is implied by preparing a branch; the live backend exists only once the owner
-provisions the Supabase project (`supabase/README.md`, one command) and `assets/js/config.js` holds its
-URL and anon key.
+otherwise; set `REQUIRE_BACKEND=1` to fail instead). Pushes to `main` deploy Pages automatically, and
+since `a04ce05` a deploy talks to the live Supabase project (`config.js`): nothing gates a push to `main`
+but this list. The offline check routes an empty config, so it never reads production; the two-browser
+proof writes real, visible reports and pickups when pointed at production (`test/e2e/README.md`).
 
 ## Legacy repositories (frozen, read-only)
 

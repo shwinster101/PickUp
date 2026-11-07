@@ -343,6 +343,8 @@ const useAdvancedMarkers = () => !!CFG.GOOGLE_MAP_ID && !!(google.maps.marker &&
 
 function buildMap() {
   document.getElementById('map-loading').classList.add('hidden');
+  // A map that loads after the 5 s timer (slow network) must not keep the "map unavailable" banner over it.
+  document.getElementById('key-warning')?.classList.remove('shown');
 
   // Subtle, editorial-atlas map style
   const mapStyle = [
@@ -700,7 +702,10 @@ async function renderPickups(court) {
   if (!list || !actions) return;
 
   if (!live()) {
-    list.innerHTML = `<div class="pickups-empty">Pickups need the shared backend, which is not configured on this copy of the page.</div>`;
+    // Two different facts (audit 2026-11-07): configured but unreachable (e.g. a paused project) is not "not configured".
+    list.innerHTML = state.dataSource === 'offline-fallback'
+      ? `<div class="pickups-empty">Pickups need the shared backend, which is not answering right now. Try again later.</div>`
+      : `<div class="pickups-empty">Pickups need the shared backend, which is not configured on this copy of the page.</div>`;
     actions.innerHTML = '';
     return;
   }

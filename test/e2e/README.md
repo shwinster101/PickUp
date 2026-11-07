@@ -233,6 +233,12 @@ page's own config is the thing under test):
 OC_PAGE_URL=https://shwinster101.github.io/PickUp/ node test/e2e/two-browsers.cjs
 ```
 
+**Caution (2026-11-07 audit):** against the real project the proof writes real data that every visitor sees:
+an "Open" report on the court (shown as a live signal for 90 minutes), a pickup with the two throwaway players
+on the map, and two anonymous users who cannot be deleted while they organise a pickup
+(`pickups_organiser_id_fkey`). Nothing cleans it up. The 2026-10-18 run left two pickups and two reports on
+Memorial Park. Pick a quiet hour, or a separate project, until the proof cancels what it creates.
+
 The anon key is a publishable client credential (`docs/MIGRATION.md` §3); it goes in the command's
 environment, never in a file of this repository. On the real project `#data-source` may read "Shared
 data · live" (the realtime channel is SUBSCRIBED); the script accepts both. What this proof still does

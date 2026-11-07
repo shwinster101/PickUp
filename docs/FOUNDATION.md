@@ -2,7 +2,13 @@
 
 **Issue · goal · vision · mission · personas · user stories · workflow · fundamental requirements**
 
-**Version 1.3.0 · 2026-10-18 · Status: adopted as the north star for the PickUp → OpenCourt migration; the shared backend (M1–M3 SQL and screens, M4 realtime + account) is built and proven in two browsers against a local stand-in, awaiting the owner's Supabase project (one command).**
+**Version 1.3.5 · 2026-11-07 · Status: adopted as the north star for the PickUp → OpenCourt migration; the shared backend (M1–M3 SQL and screens, M4 realtime + account) is built, proven in two browsers against a local stand-in, and live on the Supabase project `pickup` since 2026-10-18 (v1.3.1).**
+
+> **Correction (2026-11-07 audit):** this line and every "awaiting the project" in §5's status column were
+> true until 2026-10-18; the project has been live since then. Two qualifiers the column does not show: the
+> account stories (keep / sign in by email) cannot work until the project sends mail beyond its own team and
+> its redirect URLs name `/PickUp/`, and nothing measures whether any story is used, which §8's Phase 5
+> gate needs. Evidence: `working/2026-11-07-audit.md`.
 Owner ruling (2026-10-17): *"OpenCourt is the modern successor — though keeping the PickUp namesake
 and logo will be the path forward: migration of PickUp backend flow to the OpenCourt structure and
 working APIs."*

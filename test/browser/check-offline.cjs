@@ -3,6 +3,10 @@ const PORT = process.env.PORT || 8000; // serve the repo root on this port first
 (async () => {
   const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium', args: ['--no-sandbox'] }).catch(async e => { console.log('launch fallback:', e.message.split('\n')[0]); return chromium.launch({ args: ['--no-sandbox'] }); });
   const page = await browser.newPage({ viewport: { width: 1280, height: 800 } });
+  // Offline on every machine: since a04ce05 the committed config.js names the real project, so without this
+  // route a networked run read production (audit 2026-11-07). Empty values = the page's offline mode.
+  await page.route('**/assets/js/config.js', r => r.fulfill({ status: 200, contentType: 'application/javascript',
+    body: "window.OPENCOURT_CONFIG = { SUPABASE_URL: '', SUPABASE_ANON_KEY: '', GOOGLE_MAP_ID: '', METRO: 'LA' };" }));
   const logs = [];
   page.on('console', m => logs.push(`[${m.type()}] ${m.text().slice(0, 300)}`));
   page.on('pageerror', e => logs.push(`[pageerror] ${String(e).slice(0, 300)}`));
