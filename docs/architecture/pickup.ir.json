@@ -1,0 +1,128 @@
+{
+ "title": "PickUp / OpenCourt — Architecture (v1.3.4)",
+ "direction": "TB",
+ "nodes": [
+  {
+   "id": "player",
+   "label": "Player (phone/desktop)",
+   "type": "user",
+   "color": "gray"
+  },
+  {
+   "id": "page",
+   "label": "Static page (no build)\nindex.html · app.js · backend.js · config.js\nMap · Mine · Friends · You · Inbox",
+   "type": "component",
+   "color": "blue"
+  },
+  {
+   "id": "offline",
+   "label": "Offline mode\ncourts.json + localStorage reports",
+   "type": "database",
+   "color": "orange"
+  },
+  {
+   "id": "maps",
+   "label": "Google Maps JS\n(referrer-restricted key, OverlayView pins)",
+   "type": "cloud",
+   "color": "gray"
+  },
+  {
+   "id": "sbjs",
+   "label": "supabase-js 2.45.4 (pinned UMD)",
+   "type": "component",
+   "color": "blue"
+  },
+  {
+   "id": "gotrue",
+   "label": "[Supabase]\nSupabase Auth\nanonymous → keep account / magic link",
+   "type": "component",
+   "color": "red"
+  },
+  {
+   "id": "rest",
+   "label": "[Supabase]\nPostgREST + RPC\nsubmit_report · create/join_pickup\nrecord_result · vote_mvp · friends",
+   "type": "component",
+   "color": "green"
+  },
+  {
+   "id": "pg",
+   "label": "[Supabase]\nPostgres + RLS (auth.uid())\ncourts · court_reports · profiles · pickups\nattendees · notifications · friendships",
+   "type": "database",
+   "color": "orange"
+  },
+  {
+   "id": "rt",
+   "label": "[Supabase]\nRealtime publication\npickups · attendees · notifications\n↺ pushes to page (else 5-min poll)",
+   "type": "queue",
+   "color": "yellow"
+  },
+  {
+   "id": "cronj",
+   "label": "[Supabase]\npg_cron\nstart_due · finalize_mvp · expire_stale",
+   "type": "component",
+   "color": "purple"
+  },
+  {
+   "id": "gh",
+   "label": "GitHub Pages\n(deploy on push to main)",
+   "type": "cloud",
+   "color": "purple"
+  },
+  {
+   "id": "prov",
+   "label": "provision-supabase.sh\n(Management API)",
+   "type": "component",
+   "color": "purple"
+  }
+ ],
+ "edges": [
+  {
+   "from": "gh",
+   "to": "page",
+   "label": "serves"
+  },
+  {
+   "from": "player",
+   "to": "page"
+  },
+  {
+   "from": "page",
+   "to": "maps"
+  },
+  {
+   "from": "page",
+   "to": "offline",
+   "label": "no config"
+  },
+  {
+   "from": "page",
+   "to": "sbjs",
+   "label": "with config"
+  },
+  {
+   "from": "sbjs",
+   "to": "gotrue"
+  },
+  {
+   "from": "sbjs",
+   "to": "rest"
+  },
+  {
+   "from": "rest",
+   "to": "pg"
+  },
+  {
+   "from": "pg",
+   "to": "rt"
+  },
+  {
+   "from": "cronj",
+   "to": "pg"
+  },
+  {
+   "from": "prov",
+   "to": "pg",
+   "label": "migrations + seed"
+  }
+ ]
+}
