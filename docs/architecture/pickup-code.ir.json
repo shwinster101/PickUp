@@ -1,0 +1,168 @@
+{
+ "title": "PickUp — Code map",
+ "direction": "TB",
+ "nodes": [
+  {
+   "id": "html",
+   "label": "index.html\nshell · header · sheets",
+   "type": "component",
+   "color": "blue"
+  },
+  {
+   "id": "app",
+   "label": "assets/js/app.js\nmap · list · filters · court\nsheet\nMine · Friends · You · Inbox\n· router",
+   "type": "component",
+   "color": "blue"
+  },
+  {
+   "id": "backend",
+   "label": "assets/js/backend.js\nsupabase-js wrapper: reads,\nRPCs\nauth, realtime channel",
+   "type": "component",
+   "color": "blue"
+  },
+  {
+   "id": "config",
+   "label": "assets/js/config.js\nSUPABASE_URL · anon key\nGOOGLE_MAP_ID · METRO",
+   "type": "component",
+   "color": "red"
+  },
+  {
+   "id": "data",
+   "label": "assets/data\ncourts.json\ngrand-slams.json",
+   "type": "database",
+   "color": "orange"
+  },
+  {
+   "id": "css",
+   "label": "assets/css/styles.css",
+   "type": "component",
+   "color": "blue"
+  },
+  {
+   "id": "mig",
+   "label": "supabase/migrations\n0001 courts+reports · 0002\nidentity+pickups\n0003 friends/results/MVP\n0004 pg_cron · 0005 realtime",
+   "type": "database",
+   "color": "orange"
+  },
+  {
+   "id": "seed",
+   "label": "supabase/seed.sql",
+   "type": "database",
+   "color": "orange"
+  },
+  {
+   "id": "export",
+   "label": "scripts/export-courts-seed.mjs\ncourts.json → seed.sql",
+   "type": "component",
+   "color": "purple"
+  },
+  {
+   "id": "prov",
+   "label": "scripts/provision-supabase.sh\ncreate project · apply\nmigrations · write config.js",
+   "type": "component",
+   "color": "purple"
+  },
+  {
+   "id": "check",
+   "label": "scripts/check.sh (the gate)\nJSON/JS parse · secret scan\n· seed current\n--backend → test/backend",
+   "type": "component",
+   "color": "green"
+  },
+  {
+   "id": "tb",
+   "label": "test/backend\nshim.sql + t_010…t_040 (182\nassertions)\non throwaway PostgreSQL",
+   "type": "component",
+   "color": "green"
+  },
+  {
+   "id": "tbr",
+   "label": "test/browser\ncheck-offline\ncheck-backend\nfake-supabase.js",
+   "type": "component",
+   "color": "green"
+  },
+  {
+   "id": "te2e",
+   "label": "test/e2e\nlocal-backend.py (mini\nPostgREST+GoTrue)\nsmoke (44)\ntwo-browsers.cjs (8 steps)",
+   "type": "component",
+   "color": "green"
+  },
+  {
+   "id": "tprov",
+   "label": "test/provision\nmock-api.py · run.sh (40)",
+   "type": "component",
+   "color": "green"
+  },
+  {
+   "id": "ci",
+   "label": ".github/workflows/pages.yml\ndeploy to GitHub Pages",
+   "type": "component",
+   "color": "purple"
+  }
+ ],
+ "edges": [
+  {
+   "from": "html",
+   "to": "app"
+  },
+  {
+   "from": "html",
+   "to": "css"
+  },
+  {
+   "from": "app",
+   "to": "backend"
+  },
+  {
+   "from": "app",
+   "to": "data",
+   "label": "offline"
+  },
+  {
+   "from": "backend",
+   "to": "config"
+  },
+  {
+   "from": "export",
+   "to": "seed"
+  },
+  {
+   "from": "data",
+   "to": "export"
+  },
+  {
+   "from": "prov",
+   "to": "mig"
+  },
+  {
+   "from": "prov",
+   "to": "config",
+   "label": "writes"
+  },
+  {
+   "from": "check",
+   "to": "tb"
+  },
+  {
+   "from": "tb",
+   "to": "mig",
+   "label": "applies"
+  },
+  {
+   "from": "tbr",
+   "to": "app"
+  },
+  {
+   "from": "te2e",
+   "to": "mig"
+  },
+  {
+   "from": "tprov",
+   "to": "prov"
+  },
+  {
+   "from": "ci",
+   "to": "html",
+   "label": "deploys"
+  }
+ ]
+}

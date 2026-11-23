@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2015 1368" width="2015" height="1368">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1e1e1e" />
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="2015" height="1368" fill="#ffffff" />
+  <rect x="60" y="252" width="270" height="108" rx="8" ry="8" fill="#a5d8ff" stroke="#1971c2" stroke-width="2" opacity="1" />
+  <rect x="370" y="464" width="320" height="180" rx="8" ry="8" fill="#a5d8ff" stroke="#1971c2" stroke-width="2" opacity="1" />
+  <rect x="552.5" y="736" width="310" height="156" rx="8" ry="8" fill="#a5d8ff" stroke="#1971c2" stroke-width="2" opacity="1" />
+  <rect x="770" y="1008" width="270" height="132" rx="8" ry="8" fill="#ffc9c9" stroke="#e03131" stroke-width="2" opacity="1" />
+  <rect x="272.5" y="748" width="200" height="132" rx="8" ry="8" fill="#ffd8a8" stroke="#e8590c" stroke-width="2" opacity="1" />
+  <rect x="60" y="512" width="250" height="84" rx="8" ry="8" fill="#a5d8ff" stroke="#1971c2" stroke-width="2" opacity="1" />
+  <rect x="1305" y="984" width="320" height="180" rx="8" ry="8" fill="#ffd8a8" stroke="#e8590c" stroke-width="2" opacity="1" />
+  <rect x="267.5" y="1244" width="210" height="84" rx="8" ry="8" fill="#ffd8a8" stroke="#e8590c" stroke-width="2" opacity="1" />
+  <rect x="212.5" y="1020" width="320" height="108" rx="8" ry="8" fill="#d0bfff" stroke="#7048e8" stroke-width="2" opacity="1" />
+  <rect x="1295" y="748" width="320" height="132" rx="8" ry="8" fill="#d0bfff" stroke="#7048e8" stroke-width="2" opacity="1" />
+  <rect x="925" y="476" width="310" height="156" rx="8" ry="8" fill="#b2f2bb" stroke="#2f9e44" stroke-width="2" opacity="1" />
+  <rect x="925" y="736" width="310" height="156" rx="8" ry="8" fill="#b2f2bb" stroke="#2f9e44" stroke-width="2" opacity="1" />
+  <rect x="440" y="228" width="200" height="156" rx="8" ry="8" fill="#b2f2bb" stroke="#2f9e44" stroke-width="2" opacity="1" />
+  <rect x="1675" y="724" width="300" height="180" rx="8" ry="8" fill="#b2f2bb" stroke="#2f9e44" stroke-width="2" opacity="1" />
+  <rect x="1310" y="500" width="290" height="108" rx="8" ry="8" fill="#b2f2bb" stroke="#2f9e44" stroke-width="2" opacity="1" />
+  <rect x="40" y="40" width="310" height="108" rx="8" ry="8" fill="#d0bfff" stroke="#7048e8" stroke-width="2" opacity="1" />
+  <polyline points="195,360 530,464" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrowhead)" />
+  <polyline points="195,360 185,512" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrowhead)" />
+  <polyline points="530,644 707.5,736" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrowhead)" />
+  <polyline points="530,644 372.5,748" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrowhead)" />
+  <polyline points="707.5,892 905,1008" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrowhead)" />
+  <polyline points="372.5,1128 372.5,1244" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrowhead)" />
+  <polyline points="372.5,880 372.5,1020" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrowhead)" />
+  <polyline points="1455,880 1465,984" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrowhead)" />
+  <polyline points="1455,880 905,1008" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrowhead)" />
+  <polyline points="1080,632 1080,736" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrowhead)" />
+  <polyline points="1080,892 1465,984" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrowhead)" />
+  <polyline points="540,384 530,464" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrowhead)" />
+  <polyline points="1825,904 1465,984" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrowhead)" />
+  <polyline points="1455,608 1455,748" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrowhead)" />
+  <polyline points="195,148 195,252" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrowhead)" />
+  <text x="195" y="302" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="16" fill="#1971c2" text-anchor="middle">
+    <tspan x="195" dy="0">index.html</tspan>
+    <tspan x="195" dy="20">shell · header · sheets</tspan>
+  </text>
+  <text x="530" y="520" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="16" fill="#1971c2" text-anchor="middle">
+    <tspan x="530" dy="0">assets/js/app.js</tspan>
+    <tspan x="530" dy="20">map · list · filters · court</tspan>
+    <tspan x="530" dy="20">sheet</tspan>
+    <tspan x="530" dy="20">Mine · Friends · You · Inbox</tspan>
+    <tspan x="530" dy="20">· router</tspan>
+  </text>
+  <text x="707.5" y="790" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="16" fill="#1971c2" text-anchor="middle">
+    <tspan x="707.5" dy="0">assets/js/backend.js</tspan>
+    <tspan x="707.5" dy="20">supabase-js wrapper: reads,</tspan>
+    <tspan x="707.5" dy="20">RPCs</tspan>
+    <tspan x="707.5" dy="20">auth, realtime channel</tspan>
+  </text>
+  <text x="905" y="1060" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="16" fill="#e03131" text-anchor="middle">
+    <tspan x="905" dy="0">assets/js/config.js</tspan>
+    <tspan x="905" dy="20">SUPABASE_URL · anon key</tspan>
+    <tspan x="905" dy="20">GOOGLE_MAP_ID · METRO</tspan>
+  </text>
+  <text x="372.5" y="800" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="16" fill="#e8590c" text-anchor="middle">
+    <tspan x="372.5" dy="0">assets/data</tspan>
+    <tspan x="372.5" dy="20">courts.json</tspan>
+    <tspan x="372.5" dy="20">grand-slams.json</tspan>
+  </text>
+  <text x="185" y="560" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="16" fill="#1971c2" text-anchor="middle">
+    <tspan x="185" dy="0">assets/css/styles.css</tspan>
+  </text>
+  <text x="1465" y="1040" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="16" fill="#e8590c" text-anchor="middle">
+    <tspan x="1465" dy="0">supabase/migrations</tspan>
+    <tspan x="1465" dy="20">0001 courts+reports · 0002</tspan>
+    <tspan x="1465" dy="20">identity+pickups</tspan>
+    <tspan x="1465" dy="20">0003 friends/results/MVP</tspan>
+    <tspan x="1465" dy="20">0004 pg_cron · 0005 realtime</tspan>
+  </text>
+  <text x="372.5" y="1292" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="16" fill="#e8590c" text-anchor="middle">
+    <tspan x="372.5" dy="0">supabase/seed.sql</tspan>
+  </text>
+  <text x="372.5" y="1070" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="16" fill="#7048e8" text-anchor="middle">
+    <tspan x="372.5" dy="0">scripts/export-courts-seed.mjs</tspan>
+    <tspan x="372.5" dy="20">courts.json → seed.sql</tspan>
+  </text>
+  <text x="1455" y="800" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="16" fill="#7048e8" text-anchor="middle">
+    <tspan x="1455" dy="0">scripts/provision-supabase.sh</tspan>
+    <tspan x="1455" dy="20">create project · apply</tspan>
+    <tspan x="1455" dy="20">migrations · write config.js</tspan>
+  </text>
+  <text x="1080" y="530" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="16" fill="#2f9e44" text-anchor="middle">
+    <tspan x="1080" dy="0">scripts/check.sh (the gate)</tspan>
+    <tspan x="1080" dy="20">JSON/JS parse · secret scan</tspan>
+    <tspan x="1080" dy="20">· seed current</tspan>
+    <tspan x="1080" dy="20">--backend → test/backend</tspan>
+  </text>
+  <text x="1080" y="790" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="16" fill="#2f9e44" text-anchor="middle">
+    <tspan x="1080" dy="0">test/backend</tspan>
+    <tspan x="1080" dy="20">shim.sql + t_010…t_040 (182</tspan>
+    <tspan x="1080" dy="20">assertions)</tspan>
+    <tspan x="1080" dy="20">on throwaway PostgreSQL</tspan>
+  </text>
+  <text x="540" y="282" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="16" fill="#2f9e44" text-anchor="middle">
+    <tspan x="540" dy="0">test/browser</tspan>
+    <tspan x="540" dy="20">check-offline</tspan>
+    <tspan x="540" dy="20">check-backend</tspan>
+    <tspan x="540" dy="20">fake-supabase.js</tspan>
+  </text>
+  <text x="1825" y="780" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="16" fill="#2f9e44" text-anchor="middle">
+    <tspan x="1825" dy="0">test/e2e</tspan>
+    <tspan x="1825" dy="20">local-backend.py (mini</tspan>
+    <tspan x="1825" dy="20">PostgREST+GoTrue)</tspan>
+    <tspan x="1825" dy="20">smoke (44)</tspan>
+    <tspan x="1825" dy="20">two-browsers.cjs (8 steps)</tspan>
+  </text>
+  <text x="1455" y="550" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="16" fill="#2f9e44" text-anchor="middle">
+    <tspan x="1455" dy="0">test/provision</tspan>
+    <tspan x="1455" dy="20">mock-api.py · run.sh (40)</tspan>
+  </text>
+  <text x="195" y="90" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="16" fill="#7048e8" text-anchor="middle">
+    <tspan x="195" dy="0">.github/workflows/pages.yml</tspan>
+    <tspan x="195" dy="20">deploy to GitHub Pages</tspan>
+  </text>
+  <text x="451.25" y="701.25" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="14" fill="#1e1e1e" text-anchor="middle">
+    <tspan x="451.25" dy="0">offline</tspan>
+  </text>
+  <text x="1180" y="949.25" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="14" fill="#1e1e1e" text-anchor="middle">
+    <tspan x="1180" dy="0">writes</tspan>
+  </text>
+  <text x="1272.5" y="943.25" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="14" fill="#1e1e1e" text-anchor="middle">
+    <tspan x="1272.5" dy="0">applies</tspan>
+  </text>
+  <text x="195" y="205.25" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="14" fill="#1e1e1e" text-anchor="middle">
+    <tspan x="195" dy="0">deploys</tspan>
+  </text>
+</svg>

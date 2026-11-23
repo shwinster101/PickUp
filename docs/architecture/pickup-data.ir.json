@@ -1,0 +1,174 @@
+{
+ "title": "PickUp — Data model (Supabase Postgres, migrations 0001–0005)",
+ "direction": "TB",
+ "nodes": [
+  {
+   "id": "auth",
+   "label": "auth.users\n(Supabase Auth: anonymous or\nemail)",
+   "type": "database",
+   "color": "red"
+  },
+  {
+   "id": "courts",
+   "label": "courts\nid · metro · name\nneighborhood · lat · lng\nsports · tier · court_count\n· demand_tier\nnotes · source · is_active\nlast_updated",
+   "type": "database",
+   "color": "orange"
+  },
+  {
+   "id": "reports",
+   "label": "court_reports\nid · court_id → courts\nreporter_id\nstatus · created_at\n(15-min rate limit,\nauthor-only read)",
+   "type": "database",
+   "color": "orange"
+  },
+  {
+   "id": "profiles",
+   "label": "profiles\nid → auth.users · username\ndisplay_name\nphoto_url · metro · skill\nis_anonymous · search",
+   "type": "database",
+   "color": "orange"
+  },
+  {
+   "id": "pickups",
+   "label": "pickups\nid · court_id → courts\norganiser_id → profiles\nsport · starts_at · ends_at\n· capacity · note\nstatus · share_token\nwinning_team_no · mvp_id",
+   "type": "database",
+   "color": "orange"
+  },
+  {
+   "id": "att",
+   "label": "pickup_attendees\npickup_id · player_id\nstatus\ninvited_by · team_no\njoined_at",
+   "type": "database",
+   "color": "orange"
+  },
+  {
+   "id": "teams",
+   "label": "pickup_teams\nid · pickup_id · team_no\nset_scores",
+   "type": "database",
+   "color": "orange"
+  },
+  {
+   "id": "mvp",
+   "label": "mvp_votes\npickup_id · voter_id\nvotee_id\n(one vote, not self)",
+   "type": "database",
+   "color": "orange"
+  },
+  {
+   "id": "friends",
+   "label": "friendships\nrequester_id · addressee_id\n· created_at",
+   "type": "database",
+   "color": "orange"
+  },
+  {
+   "id": "notif",
+   "label": "notifications\nid · recipient_id · actor_id\n· pickup_id\nkind · created_at · read_at",
+   "type": "database",
+   "color": "orange"
+  },
+  {
+   "id": "events",
+   "label": "event_log\nid · at · actor_id · kind\npickup_id · payload",
+   "type": "database",
+   "color": "orange"
+  },
+  {
+   "id": "views",
+   "label": "Views\ncourts_live · open_pickups\nmy_pickups\nmy_notifications\nplayer_standing",
+   "type": "component",
+   "color": "blue"
+  },
+  {
+   "id": "rpc",
+   "label": "Write functions (RPC, under\nRLS)\nsubmit_report\nupsert_profile\ncreate/join/leave/cancel_pickup\ninvite · respond\nrecord_result · vote_mvp\nfriend requests",
+   "type": "component",
+   "color": "green"
+  },
+  {
+   "id": "cron",
+   "label": "pg_cron jobs\nstart_due_pickups\nfinalize_due_mvp_votes\nexpire_stale_pickups",
+   "type": "component",
+   "color": "purple"
+  },
+  {
+   "id": "rt",
+   "label": "Realtime publication\npickups · pickup_attendees\nnotifications",
+   "type": "queue",
+   "color": "yellow"
+  }
+ ],
+ "edges": [
+  {
+   "from": "auth",
+   "to": "profiles",
+   "label": "1:1"
+  },
+  {
+   "from": "courts",
+   "to": "reports",
+   "label": "1:N"
+  },
+  {
+   "from": "courts",
+   "to": "pickups",
+   "label": "1:N"
+  },
+  {
+   "from": "profiles",
+   "to": "pickups",
+   "label": "organises"
+  },
+  {
+   "from": "pickups",
+   "to": "att",
+   "label": "1:N"
+  },
+  {
+   "from": "profiles",
+   "to": "att",
+   "label": "player"
+  },
+  {
+   "from": "pickups",
+   "to": "teams",
+   "label": "1:N"
+  },
+  {
+   "from": "pickups",
+   "to": "mvp",
+   "label": "1:N"
+  },
+  {
+   "from": "profiles",
+   "to": "friends",
+   "label": "2 per row"
+  },
+  {
+   "from": "profiles",
+   "to": "notif",
+   "label": "recipient"
+  },
+  {
+   "from": "pickups",
+   "to": "notif"
+  },
+  {
+   "from": "pickups",
+   "to": "events"
+  },
+  {
+   "from": "rpc",
+   "to": "pickups",
+   "label": "only write path"
+  },
+  {
+   "from": "cron",
+   "to": "pickups"
+  },
+  {
+   "from": "views",
+   "to": "pickups",
+   "label": "read"
+  },
+  {
+   "from": "pickups",
+   "to": "rt"
+  }
+ ]
+}

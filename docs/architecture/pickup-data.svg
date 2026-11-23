@@ -1,0 +1,175 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2522.5 1112" width="2522.5" height="1112">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1e1e1e" />
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="2522.5" height="1112" fill="#ffffff" />
+  <rect x="400" y="40" width="320" height="132" rx="8" ry="8" fill="#ffc9c9" stroke="#e03131" stroke-width="2" opacity="1" />
+  <rect x="40" y="264" width="310" height="228" rx="8" ry="8" fill="#ffd8a8" stroke="#e8590c" stroke-width="2" opacity="1" />
+  <rect x="65" y="596" width="260" height="204" rx="8" ry="8" fill="#ffd8a8" stroke="#e8590c" stroke-width="2" opacity="1" />
+  <rect x="410" y="288" width="300" height="180" rx="8" ry="8" fill="#ffd8a8" stroke="#e8590c" stroke-width="2" opacity="1" />
+  <rect x="912.5" y="584" width="310" height="228" rx="8" ry="8" fill="#ffd8a8" stroke="#e8590c" stroke-width="2" opacity="1" />
+  <rect x="200" y="892" width="250" height="180" rx="8" ry="8" fill="#ffd8a8" stroke="#e8590c" stroke-width="2" opacity="1" />
+  <rect x="510" y="916" width="280" height="132" rx="8" ry="8" fill="#ffd8a8" stroke="#e8590c" stroke-width="2" opacity="1" />
+  <rect x="987.5" y="904" width="240" height="156" rx="8" ry="8" fill="#ffd8a8" stroke="#e8590c" stroke-width="2" opacity="1" />
+  <rect x="405" y="632" width="310" height="132" rx="8" ry="8" fill="#ffd8a8" stroke="#e8590c" stroke-width="2" opacity="1" />
+  <rect x="1452.5" y="904" width="320" height="156" rx="8" ry="8" fill="#ffd8a8" stroke="#e8590c" stroke-width="2" opacity="1" />
+  <rect x="1832.5" y="916" width="290" height="132" rx="8" ry="8" fill="#ffd8a8" stroke="#e8590c" stroke-width="2" opacity="1" />
+  <rect x="1587.5" y="288" width="300" height="180" rx="8" ry="8" fill="#a5d8ff" stroke="#1971c2" stroke-width="2" opacity="1" />
+  <rect x="887.5" y="252" width="320" height="252" rx="8" ry="8" fill="#b2f2bb" stroke="#2f9e44" stroke-width="2" opacity="1" />
+  <rect x="1267.5" y="300" width="260" height="156" rx="8" ry="8" fill="#d0bfff" stroke="#7048e8" stroke-width="2" opacity="1" />
+  <rect x="2182.5" y="916" width="300" height="132" rx="8" ry="8" fill="#ffec99" stroke="#f08c00" stroke-width="2" opacity="1" />
+  <polyline points="560,172 560,288" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrowhead)" />
+  <polyline points="195,492 195,596" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrowhead)" />
+  <polyline points="195,492 1067.5,584" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrowhead)" />
+  <polyline points="560,468 1067.5,584" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrowhead)" />
+  <polyline points="1067.5,812 325,892" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrowhead)" />
+  <polyline points="560,468 325,892" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrowhead)" />
+  <polyline points="1067.5,812 650,916" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrowhead)" />
+  <polyline points="1067.5,812 1107.5,904" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrowhead)" />
+  <polyline points="560,468 560,632" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrowhead)" />
+  <polyline points="560,468 1612.5,904" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrowhead)" />
+  <polyline points="1067.5,812 1612.5,904" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrowhead)" />
+  <polyline points="1067.5,812 1977.5,916" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrowhead)" />
+  <polyline points="1047.5,504 1067.5,584" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrowhead)" />
+  <polyline points="1397.5,456 1067.5,584" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrowhead)" />
+  <polyline points="1737.5,468 1067.5,584" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrowhead)" />
+  <polyline points="1067.5,812 2332.5,916" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrowhead)" />
+  <text x="560" y="92" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="16" fill="#e03131" text-anchor="middle">
+    <tspan x="560" dy="0">auth.users</tspan>
+    <tspan x="560" dy="20">(Supabase Auth: anonymous or</tspan>
+    <tspan x="560" dy="20">email)</tspan>
+  </text>
+  <text x="195" y="324" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="16" fill="#e8590c" text-anchor="middle">
+    <tspan x="195" dy="0">courts</tspan>
+    <tspan x="195" dy="20">id · metro · name</tspan>
+    <tspan x="195" dy="20">neighborhood · lat · lng</tspan>
+    <tspan x="195" dy="20">sports · tier · court_count</tspan>
+    <tspan x="195" dy="20">· demand_tier</tspan>
+    <tspan x="195" dy="20">notes · source · is_active</tspan>
+    <tspan x="195" dy="20">last_updated</tspan>
+  </text>
+  <text x="195" y="654" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="16" fill="#e8590c" text-anchor="middle">
+    <tspan x="195" dy="0">court_reports</tspan>
+    <tspan x="195" dy="20">id · court_id → courts</tspan>
+    <tspan x="195" dy="20">reporter_id</tspan>
+    <tspan x="195" dy="20">status · created_at</tspan>
+    <tspan x="195" dy="20">(15-min rate limit,</tspan>
+    <tspan x="195" dy="20">author-only read)</tspan>
+  </text>
+  <text x="560" y="344" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="16" fill="#e8590c" text-anchor="middle">
+    <tspan x="560" dy="0">profiles</tspan>
+    <tspan x="560" dy="20">id → auth.users · username</tspan>
+    <tspan x="560" dy="20">display_name</tspan>
+    <tspan x="560" dy="20">photo_url · metro · skill</tspan>
+    <tspan x="560" dy="20">is_anonymous · search</tspan>
+  </text>
+  <text x="1067.5" y="644" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="16" fill="#e8590c" text-anchor="middle">
+    <tspan x="1067.5" dy="0">pickups</tspan>
+    <tspan x="1067.5" dy="20">id · court_id → courts</tspan>
+    <tspan x="1067.5" dy="20">organiser_id → profiles</tspan>
+    <tspan x="1067.5" dy="20">sport · starts_at · ends_at</tspan>
+    <tspan x="1067.5" dy="20">· capacity · note</tspan>
+    <tspan x="1067.5" dy="20">status · share_token</tspan>
+    <tspan x="1067.5" dy="20">winning_team_no · mvp_id</tspan>
+  </text>
+  <text x="325" y="948" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="16" fill="#e8590c" text-anchor="middle">
+    <tspan x="325" dy="0">pickup_attendees</tspan>
+    <tspan x="325" dy="20">pickup_id · player_id</tspan>
+    <tspan x="325" dy="20">status</tspan>
+    <tspan x="325" dy="20">invited_by · team_no</tspan>
+    <tspan x="325" dy="20">joined_at</tspan>
+  </text>
+  <text x="650" y="968" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="16" fill="#e8590c" text-anchor="middle">
+    <tspan x="650" dy="0">pickup_teams</tspan>
+    <tspan x="650" dy="20">id · pickup_id · team_no</tspan>
+    <tspan x="650" dy="20">set_scores</tspan>
+  </text>
+  <text x="1107.5" y="958" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="16" fill="#e8590c" text-anchor="middle">
+    <tspan x="1107.5" dy="0">mvp_votes</tspan>
+    <tspan x="1107.5" dy="20">pickup_id · voter_id</tspan>
+    <tspan x="1107.5" dy="20">votee_id</tspan>
+    <tspan x="1107.5" dy="20">(one vote, not self)</tspan>
+  </text>
+  <text x="560" y="684" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="16" fill="#e8590c" text-anchor="middle">
+    <tspan x="560" dy="0">friendships</tspan>
+    <tspan x="560" dy="20">requester_id · addressee_id</tspan>
+    <tspan x="560" dy="20">· created_at</tspan>
+  </text>
+  <text x="1612.5" y="958" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="16" fill="#e8590c" text-anchor="middle">
+    <tspan x="1612.5" dy="0">notifications</tspan>
+    <tspan x="1612.5" dy="20">id · recipient_id · actor_id</tspan>
+    <tspan x="1612.5" dy="20">· pickup_id</tspan>
+    <tspan x="1612.5" dy="20">kind · created_at · read_at</tspan>
+  </text>
+  <text x="1977.5" y="968" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="16" fill="#e8590c" text-anchor="middle">
+    <tspan x="1977.5" dy="0">event_log</tspan>
+    <tspan x="1977.5" dy="20">id · at · actor_id · kind</tspan>
+    <tspan x="1977.5" dy="20">pickup_id · payload</tspan>
+  </text>
+  <text x="1737.5" y="344" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="16" fill="#1971c2" text-anchor="middle">
+    <tspan x="1737.5" dy="0">Views</tspan>
+    <tspan x="1737.5" dy="20">courts_live · open_pickups</tspan>
+    <tspan x="1737.5" dy="20">my_pickups</tspan>
+    <tspan x="1737.5" dy="20">my_notifications</tspan>
+    <tspan x="1737.5" dy="20">player_standing</tspan>
+  </text>
+  <text x="1047.5" y="314" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="16" fill="#2f9e44" text-anchor="middle">
+    <tspan x="1047.5" dy="0">Write functions (RPC, under</tspan>
+    <tspan x="1047.5" dy="20">RLS)</tspan>
+    <tspan x="1047.5" dy="20">submit_report</tspan>
+    <tspan x="1047.5" dy="20">upsert_profile</tspan>
+    <tspan x="1047.5" dy="20">create/join/leave/cancel_pickup</tspan>
+    <tspan x="1047.5" dy="20">invite · respond</tspan>
+    <tspan x="1047.5" dy="20">record_result · vote_mvp</tspan>
+    <tspan x="1047.5" dy="20">friend requests</tspan>
+  </text>
+  <text x="1397.5" y="354" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="16" fill="#7048e8" text-anchor="middle">
+    <tspan x="1397.5" dy="0">pg_cron jobs</tspan>
+    <tspan x="1397.5" dy="20">start_due_pickups</tspan>
+    <tspan x="1397.5" dy="20">finalize_due_mvp_votes</tspan>
+    <tspan x="1397.5" dy="20">expire_stale_pickups</tspan>
+  </text>
+  <text x="2332.5" y="968" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="16" fill="#f08c00" text-anchor="middle">
+    <tspan x="2332.5" dy="0">Realtime publication</tspan>
+    <tspan x="2332.5" dy="20">pickups · pickup_attendees</tspan>
+    <tspan x="2332.5" dy="20">notifications</tspan>
+  </text>
+  <text x="560" y="235.25" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="14" fill="#1e1e1e" text-anchor="middle">
+    <tspan x="560" dy="0">1:1</tspan>
+  </text>
+  <text x="195" y="549.25" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="14" fill="#1e1e1e" text-anchor="middle">
+    <tspan x="195" dy="0">1:N</tspan>
+  </text>
+  <text x="631.25" y="543.25" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="14" fill="#1e1e1e" text-anchor="middle">
+    <tspan x="631.25" dy="0">1:N</tspan>
+  </text>
+  <text x="813.75" y="531.25" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="14" fill="#1e1e1e" text-anchor="middle">
+    <tspan x="813.75" dy="0">organises</tspan>
+  </text>
+  <text x="696.25" y="857.25" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="14" fill="#1e1e1e" text-anchor="middle">
+    <tspan x="696.25" dy="0">1:N</tspan>
+  </text>
+  <text x="442.5" y="685.25" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="14" fill="#1e1e1e" text-anchor="middle">
+    <tspan x="442.5" dy="0">player</tspan>
+  </text>
+  <text x="858.75" y="869.25" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="14" fill="#1e1e1e" text-anchor="middle">
+    <tspan x="858.75" dy="0">1:N</tspan>
+  </text>
+  <text x="1087.5" y="863.25" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="14" fill="#1e1e1e" text-anchor="middle">
+    <tspan x="1087.5" dy="0">1:N</tspan>
+  </text>
+  <text x="560" y="555.25" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="14" fill="#1e1e1e" text-anchor="middle">
+    <tspan x="560" dy="0">2 per row</tspan>
+  </text>
+  <text x="1086.25" y="691.25" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="14" fill="#1e1e1e" text-anchor="middle">
+    <tspan x="1086.25" dy="0">recipient</tspan>
+  </text>
+  <text x="1057.5" y="549.25" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="14" fill="#1e1e1e" text-anchor="middle">
+    <tspan x="1057.5" dy="0">only write path</tspan>
+  </text>
+  <text x="1402.5" y="531.25" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="14" fill="#1e1e1e" text-anchor="middle">
+    <tspan x="1402.5" dy="0">read</tspan>
+  </text>
+</svg>
