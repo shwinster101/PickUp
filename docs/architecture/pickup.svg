@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2040 1296" width="2040" height="1296">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1e1e1e" />
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="2040" height="1296" fill="#ffffff" />
+  <rect x="615" y="52" width="260" height="84" rx="8" ry="8" fill="#dee2e6" stroke="#495057" stroke-width="2" opacity="1" />
+  <rect x="420" y="228" width="320" height="132" rx="8" ry="8" fill="#a5d8ff" stroke="#1971c2" stroke-width="2" opacity="1" />
+  <rect x="40" y="440" width="320" height="108" rx="8" ry="8" fill="#ffd8a8" stroke="#e8590c" stroke-width="2" opacity="1" />
+  <rect x="420" y="440" width="320" height="108" rx="8" ry="8" fill="#dee2e6" stroke="#495057" stroke-width="2" opacity="1" />
+  <rect x="800" y="452" width="320" height="84" rx="8" ry="8" fill="#a5d8ff" stroke="#1971c2" stroke-width="2" opacity="1" />
+  <rect x="610" y="640" width="320" height="132" rx="8" ry="8" fill="#ffc9c9" stroke="#e03131" stroke-width="2" opacity="1" />
+  <rect x="990" y="628" width="320" height="156" rx="8" ry="8" fill="#b2f2bb" stroke="#2f9e44" stroke-width="2" opacity="1" />
+  <rect x="1352.5" y="864" width="320" height="156" rx="8" ry="8" fill="#ffd8a8" stroke="#e8590c" stroke-width="2" opacity="1" />
+  <rect x="1352.5" y="1100" width="320" height="156" rx="8" ry="8" fill="#ffec99" stroke="#f08c00" stroke-width="2" opacity="1" />
+  <rect x="1370" y="640" width="320" height="132" rx="8" ry="8" fill="#d0bfff" stroke="#7048e8" stroke-width="2" opacity="1" />
+  <rect x="275" y="40" width="280" height="108" rx="8" ry="8" fill="#d0bfff" stroke="#7048e8" stroke-width="2" opacity="1" />
+  <rect x="1750" y="652" width="250" height="108" rx="8" ry="8" fill="#d0bfff" stroke="#7048e8" stroke-width="2" opacity="1" />
+  <polyline points="415,148 580,228" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrowhead)" />
+  <polyline points="745,136 580,228" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrowhead)" />
+  <polyline points="580,360 580,440" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrowhead)" />
+  <polyline points="580,360 200,440" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrowhead)" />
+  <polyline points="580,360 960,452" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrowhead)" />
+  <polyline points="960,536 770,640" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrowhead)" />
+  <polyline points="960,536 1150,628" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrowhead)" />
+  <polyline points="1150,784 1512.5,864" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrowhead)" />
+  <polyline points="1512.5,1020 1512.5,1100" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrowhead)" />
+  <polyline points="1530,772 1512.5,864" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrowhead)" />
+  <polyline points="1875,760 1512.5,864" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrowhead)" />
+  <text x="745" y="100" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="16" fill="#495057" text-anchor="middle">
+    <tspan x="745" dy="0">Player (phone/desktop)</tspan>
+  </text>
+  <text x="580" y="280" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="16" fill="#1971c2" text-anchor="middle">
+    <tspan x="580" dy="0">Static page (no build)</tspan>
+    <tspan x="580" dy="20">index.html · app.js · backend.js · config.js</tspan>
+    <tspan x="580" dy="20">Map · Mine · Friends · You · Inbox</tspan>
+  </text>
+  <text x="200" y="490" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="16" fill="#e8590c" text-anchor="middle">
+    <tspan x="200" dy="0">Offline mode</tspan>
+    <tspan x="200" dy="20">courts.json + localStorage reports</tspan>
+  </text>
+  <text x="580" y="490" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="16" fill="#495057" text-anchor="middle">
+    <tspan x="580" dy="0">Google Maps JS</tspan>
+    <tspan x="580" dy="20">(referrer-restricted key, OverlayView pins)</tspan>
+  </text>
+  <text x="960" y="500" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="16" fill="#1971c2" text-anchor="middle">
+    <tspan x="960" dy="0">supabase-js 2.45.4 (pinned UMD)</tspan>
+  </text>
+  <text x="770" y="692" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="16" fill="#e03131" text-anchor="middle">
+    <tspan x="770" dy="0">[Supabase]</tspan>
+    <tspan x="770" dy="20">Supabase Auth</tspan>
+    <tspan x="770" dy="20">anonymous → keep account / magic link</tspan>
+  </text>
+  <text x="1150" y="682" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="16" fill="#2f9e44" text-anchor="middle">
+    <tspan x="1150" dy="0">[Supabase]</tspan>
+    <tspan x="1150" dy="20">PostgREST + RPC</tspan>
+    <tspan x="1150" dy="20">submit_report · create/join_pickup</tspan>
+    <tspan x="1150" dy="20">record_result · vote_mvp · friends</tspan>
+  </text>
+  <text x="1512.5" y="918" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="16" fill="#e8590c" text-anchor="middle">
+    <tspan x="1512.5" dy="0">[Supabase]</tspan>
+    <tspan x="1512.5" dy="20">Postgres + RLS (auth.uid())</tspan>
+    <tspan x="1512.5" dy="20">courts · court_reports · profiles · pickups</tspan>
+    <tspan x="1512.5" dy="20">attendees · notifications · friendships</tspan>
+  </text>
+  <text x="1512.5" y="1154" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="16" fill="#f08c00" text-anchor="middle">
+    <tspan x="1512.5" dy="0">[Supabase]</tspan>
+    <tspan x="1512.5" dy="20">Realtime publication</tspan>
+    <tspan x="1512.5" dy="20">pickups · attendees · notifications</tspan>
+    <tspan x="1512.5" dy="20">↺ pushes to page (else 5-min poll)</tspan>
+  </text>
+  <text x="1530" y="692" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="16" fill="#7048e8" text-anchor="middle">
+    <tspan x="1530" dy="0">[Supabase]</tspan>
+    <tspan x="1530" dy="20">pg_cron</tspan>
+    <tspan x="1530" dy="20">start_due · finalize_mvp · expire_stale</tspan>
+  </text>
+  <text x="415" y="90" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="16" fill="#7048e8" text-anchor="middle">
+    <tspan x="415" dy="0">GitHub Pages</tspan>
+    <tspan x="415" dy="20">(deploy on push to main)</tspan>
+  </text>
+  <text x="1875" y="702" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="16" fill="#7048e8" text-anchor="middle">
+    <tspan x="1875" dy="0">provision-supabase.sh</tspan>
+    <tspan x="1875" dy="20">(Management API)</tspan>
+  </text>
+  <text x="497.5" y="193.25" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="14" fill="#1e1e1e" text-anchor="middle">
+    <tspan x="497.5" dy="0">serves</tspan>
+  </text>
+  <text x="390" y="405.25" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="14" fill="#1e1e1e" text-anchor="middle">
+    <tspan x="390" dy="0">no config</tspan>
+  </text>
+  <text x="770" y="411.25" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="14" fill="#1e1e1e" text-anchor="middle">
+    <tspan x="770" dy="0">with config</tspan>
+  </text>
+  <text x="1693.75" y="817.25" font-family="Virgil, Segoe UI Emoji, Helvetica, Arial, sans-serif" font-size="14" fill="#1e1e1e" text-anchor="middle">
+    <tspan x="1693.75" dy="0">migrations + seed</tspan>
+  </text>
+</svg>
